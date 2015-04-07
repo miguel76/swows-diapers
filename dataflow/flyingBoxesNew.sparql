@@ -7,7 +7,7 @@ PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
 PREFIX tuio:  <http://www.swows.org/tuio#>
 
-CONSTRUCT {
+INSERT {
   swi:GraphRoot
     :pallet ?pallet .
   ?pallet

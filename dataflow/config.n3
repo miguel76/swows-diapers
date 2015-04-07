@@ -3,6 +3,8 @@
 @prefix swi:   <http://www.swows.org/instance#> .
 
 swi:GraphRoot
+  :screenWidth "1920"^^xsd:integer ;
+  :screenHeight "1080"^^xsd:integer ;
   :passoIndicatore "13.0665"^^xsd:decimal ;
   :passoPacchiH "-83.125"^^xsd:decimal ;
   :passoPacchiO "158.5313"^^xsd:decimal ;
@@ -14,24 +16,42 @@ swi:GraphRoot
   :targetPacchiY "1300"^^xsd:decimal ;
   :massimaAltezzaPacchi "20"^^xsd:decimal ;
   :gravitazione "50"^^xsd:decimal ;
+  :dataflowPath <.> ;
+  :homeLink_radius "155.679"^^xsd:decimal ;
+  :palletLink_radius "33.612"^^xsd:decimal ;
   :pallet_config :config_138, :config_162, :config_150 .
 
 :config_138
   :typeId "138"^^xsd:string ;
   :maxPacchi "32"^^xsd:integer ;
   :levels "8"^^xsd:integer ;
+  :packsPerLevel "4"^^xsd:integer ;
+  :homeLink_x "1442.653"^^xsd:decimal ;
+  :homeLink_y "668.479"^^xsd:decimal ;
+  :palletLink_x "571.352"^^xsd:decimal ;
+  :palletLink_y "1002.358"^^xsd:decimal ;
   :color :color_0, :color_1_8, :color_2_8, :color_3_8, :color_4_8, :color_5_8, :color_6_8, :color_7_8, :color_8_8 .
 
 :config_162
   :typeId "162"^^xsd:string ;
   :maxPacchi "28"^^xsd:integer ;
   :levels "7"^^xsd:integer ;
+  :packsPerLevel "4"^^xsd:integer ;
+  :homeLink_x "948.427"^^xsd:decimal ;
+  :homeLink_y "668.479"^^xsd:decimal ;
+  :palletLink_x "401.63"^^xsd:decimal ;
+  :palletLink_y "1002.358"^^xsd:decimal ;
   :color :color_0, :color_1_7, :color_2_7, :color_3_7, :color_4_7, :color_5_7, :color_6_7, :color_7_7 .
 
 :config_150
   :typeId "150"^^xsd:string ;
   :maxPacchi "42"^^xsd:integer ;
   :levels "7"^^xsd:integer ;
+  :packsPerLevel "6"^^xsd:integer ;
+  :homeLink_x "454.201"^^xsd:decimal ;
+  :homeLink_y "668.479"^^xsd:decimal ;
+  :palletLink_x "231.908"^^xsd:decimal ;
+  :palletLink_y "1002.358"^^xsd:decimal ;
   :color :color_0, :color_1_7, :color_2_7, :color_3_7, :color_4_7, :color_5_7, :color_6_7, :color_7_7 .
 
 :color_0
@@ -56,7 +76,7 @@ swi:GraphRoot
 
 :color_5_8
   :id "5"^^xsd:integer ;
-  :code "#F9F167"^^xsd:string .
+  :code "#D0EE31"^^xsd:string .
 
 :color_6_8
   :id "6"^^xsd:integer ;

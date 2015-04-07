@@ -1,0 +1,75 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time:   <http://www.swows.org/time#>
+PREFIX tuio:  <http://www.swows.org/tuio#>
+
+DELETE {
+  swi:GraphRoot :selectedPage ?selectedPage .
+  ?selectedPage a :Intro .
+}
+INSERT {
+  swi:GraphRoot :selectedPage <#home> .
+  <#home> a :Home .
+}
+WHERE {
+  GRAPH swi:ThisGraph {
+    swi:GraphRoot :selectedPage ?selectedPage .
+    ?selectedPage a :Intro .
+  }
+  GRAPH swi:AddedGraph {
+    ?cursor
+      a tuio:Cursor ;
+      tuio:source tuio:defaultSource .
+  }
+};
+
+DELETE {
+  swi:GraphRoot :selectedPage ?selectedPage .
+  ?selectedPage a :Home .
+}
+INSERT {
+  swi:GraphRoot :selectedPage ?newPalletPage .
+  ?newPalletPage
+    a :Pallet ; 
+    :id ?newPalletId . 
+}
+WHERE {
+
+  GRAPH swi:ThisGraph {
+    swi:GraphRoot :selectedPage ?selectedPage .
+    ?selectedPage a :Home .
+  }
+
+  GRAPH swi:AddedGraph {
+    ?cursor
+      a tuio:Cursor ;
+      tuio:source tuio:defaultSource ;
+      tuio:position ?position .
+    ?position
+      tuio:x ?posx ;
+      tuio:y ?posy .
+  }
+
+  swi:GraphRoot
+    :screenWidth ?screenWidth ;
+    :screenHeight ?screenHeight ;
+    :homeLink_radius ?radius ;
+    :pallet_config ?palletConfig .
+
+  ?palletConfig
+    :typeId ?newPalletId ;
+    :homeLink_x ?cx ;
+    :homeLink_y ?cy .
+
+  BIND( URI( CONCAT( STR(:newPalletPage_), MD5(STR(?palletConfig)) ) ) AS ?newPalletPage ) .
+  BIND( ?posx * ?screenWidth AS ?x ) .
+  BIND( ?posy * ?screenHeight AS ?y ) .
+  FILTER ( (?x - ?cx) * (?x - ?cx) + (?y - ?cy) * (?y - ?cy) <= ?radius * ?radius ) .
+
+};
+
+

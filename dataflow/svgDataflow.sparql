@@ -1,0 +1,82 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
+PREFIX spinx:   <http://www.swows.org/spinx#> 
+PREFIX query: <http://jena.hpl.hp.com/2003/07/query/>
+PREFIX rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> 
+
+CONSTRUCT {
+
+  swi:OutputDataset
+    a spinx:DataflowGraph ;
+    spinx:input <#dataset> ;
+    spinx:config <#dataflow> . 
+
+  <#dataset>
+    a spinx:InlineDataset ;
+    spinx:input swi:InputDataset ;
+    spinx:namedInput <#input_config>, <#input_selectedPage>, <#input_possibleBoxesEnum>, <#input_boxesPositions> .
+
+  <#input_config>
+    a spinx:NamedGraph ;
+    spinx:id :config ;
+    spinx:input :config .
+
+  <#input_selectedPage> 
+    a spinx:NamedGraph ;
+    spinx:id :selectedPage ;
+    spinx:input :selectedPage .
+
+  <#input_possibleBoxesEnum>
+    a spinx:NamedGraph ;
+    spinx:id :possibleBoxesEnum ;
+    spinx:input :possibleBoxesEnum .
+
+  <#input_boxesPositions>
+    a spinx:NamedGraph ;
+    spinx:id :boxesPositions ;
+    spinx:input :boxesPositions .
+
+  :config
+    a spinx:SelectGraph ;
+    spinx:id :config ;
+    spinx:input swi:InputDataset .
+
+  :selectedPage
+    a spinx:SelectGraph ;
+    spinx:id :selectedPage ;
+    spinx:input swi:InputDataset .
+
+  :possibleBoxesEnum
+    a spinx:SelectGraph ;
+    spinx:id :possibleBoxesEnum ;
+    spinx:input swi:InputDataset .
+
+  :boxesPositions
+    a spinx:SelectGraph ;
+    spinx:id :boxesPositions ;
+    spinx:input swi:InputDataset .
+
+  <#dataflow>
+    a spinx:IncludedGraph ;
+    spinx:url ?dataflowUrl ;
+    spinx:syntax rdfSyntax:N3 .
+
+}
+WHERE {
+
+  swi:GraphRoot :selectedPage ?palletPage .
+  ?palletPage a ?palletPageType .
+
+  GRAPH :config {
+    swi:GraphRoot :dataflowPath ?dataflowPath .
+  }
+
+  BIND( URI(CONCAT( STR(?dataflowPath), "svg_", SUBSTR(STR(?palletPageType),44,20), ".n3" ))  AS ?dataflowUrl) .
+  
+}
+

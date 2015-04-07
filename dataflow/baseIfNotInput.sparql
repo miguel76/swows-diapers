@@ -1,0 +1,29 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+  swi:GraphRoot :pallet ?productType .
+  ?productType
+    :id ?productTypeId ;
+    :quantity ?productQuantityNum .
+}
+WHERE {
+  GRAPH :baseQuantities {
+    swi:GraphRoot :pallet ?productType .
+    ?productType
+      :id ?productTypeId ;
+      :quantity ?productQuantityNum .
+  } .
+  FILTER NOT EXISTS {
+    swi:GraphRoot :pallet ?inputProductType .
+    ?inputProductType
+      :id ?productTypeId ;
+      :quantity ?inputProductQuantityNum .
+    FILTER ( ?inputProductQuantityNum != 0) .
+  }
+}
+

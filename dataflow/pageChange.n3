@@ -15,36 +15,21 @@
 
 swi:OutputDataset
   a spinx:UpdatableFromEventsGraph2 ;
+  spinx:baseGraph
+    [ a spinx:LoadGraph ;
+      spinx:url <selectedPage.n3> ;
+      spinx:syntax rdfSyntax:N3 ] ;
   spinx:input
     [ spinx:eventsFrom swi:InputDataset ;
-      spinx:input
-        [ a spinx:InlineDataset ;
-          spinx:input swi:InputDataset ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :clock ;
-              spinx:input :clock ] ,
-            [ a spinx:NamedGraph ;
-              spinx:id :boxesStartingData ;
-              spinx:input :boxesStartingData ] ] ;
+      spinx:input :config ;
       spinx:config
         [ a spinx:IncludedGraph ;
-          spinx:url <flyingBoxesNew.sparql> ;
-          spinx:syntax sparql:Update ] ] ,
-    [ spinx:eventsFrom :clock ;
-      spinx:config
-        [ a spinx:IncludedGraph ;
-          spinx:url <flyingBoxesDelete.sparql> ;
+          spinx:url <pageChange.sparql> ;
           spinx:syntax sparql:Update ] ] .
 
-:clock
+:config
   a spinx:SelectGraph ;
   spinx:input swi:InputDataset ;
-  spinx:id :clock .
-
-:boxesStartingData
-  a spinx:SelectGraph ;
-  spinx:input swi:InputDataset ;
-  spinx:id :boxesStartingData .
+  spinx:id :config .
 
 

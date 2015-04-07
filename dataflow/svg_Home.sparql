@@ -1,0 +1,53 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
+
+CONSTRUCT {
+
+  ?numero xml:hasAttribute ?href_numero .
+  ?href_numero
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_numero_value .
+
+  ?cerchio xml:hasAttribute ?fill_cerchio .
+  ?fill_cerchio
+    a xml:Attr ;
+    xml:nodeName "fill"^^xsd:string ;
+    xml:nodeValue ?fill_cerchio_value .
+
+}
+WHERE {
+
+  swi:GraphRoot
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?productQuantityValue ;
+    :level ?level .
+  BIND( URI( CONCAT( STR(doc:numero_home_), STR(?palletId) ) ) AS ?numero ) .
+  BIND( URI( CONCAT( STR(:href_numero_), MD5(STR(?palletId)) ) ) AS ?href_numero ) .
+  BIND( CONCAT( "#numero_", STR(?productQuantityValue) ) AS ?href_numero_value ) .
+  BIND( URI( CONCAT( STR(doc:cerchio_home_), STR(?palletId) ) ) AS ?cerchio ) .
+  BIND( URI( CONCAT( STR(:fill_cerchio_), MD5(STR(?palletId)) ) ) AS ?fill_cerchio ) .
+
+  BIND( xsd:integer(CEIL(?selectedProductQuantityValue/4)) AS ?selectedLevel) .
+  GRAPH :config {
+    swi:GraphRoot
+      :passoIndicatore ?passoIndicatore ;
+      :pallet_config ?palletConfig .
+    ?palletConfig
+      :typeId ?palletId ;
+      :color ?color_item .
+    ?color_item
+      :id ?level ;
+      :code ?fill_cerchio_value .
+  } .
+
+}
+

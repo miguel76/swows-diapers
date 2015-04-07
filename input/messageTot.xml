@@ -3,7 +3,7 @@
 	<update-time>2012-03-13T19:07:21</update-time>
 	<pallet id="p1">
     		<product-type id="138">
-        		<available-quantity>32</available-quantity>
+        		<available-quantity>14</available-quantity>
         		<maximum-quantity>32</maximum-quantity>
 			<name>ESAPACK JUNIOR</name>
     		</product-type>
@@ -13,7 +13,7 @@
 			<name>ESAPACK MIDI</name>
     		</product-type>
     		<product-type id="162">
-        		<available-quantity>26</available-quantity>
+        		<available-quantity>18</available-quantity>
         		<maximum-quantity>28</maximum-quantity>
 			<name>ESAPACK MAXI</name>
     		</product-type>

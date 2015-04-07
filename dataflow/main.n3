@@ -100,18 +100,27 @@ swi:OutputDataset
 :quantity
  a spinx:LoggedGraph ;
  spinx:input [
-  a spinx:ConstructGraph ;
-  spinx:input
-    [ a spinx:InlineDataset ;
-      spinx:input :quantities ;
-      spinx:namedInput 
-        [ a spinx:NamedGraph ;
-          spinx:id :selectedPage ;
-          spinx:input :selectedPage ] ] ;
-  spinx:config [
-    a spinx:IncludedGraph ;
-    spinx:url <selectedQuantity.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ] .
+  a spinx:UnionGraph ;
+  spinx:input [
+    a spinx:ConstructGraph ;
+    spinx:input
+      [ a spinx:InlineDataset ;
+        spinx:input :quantities ;
+        spinx:namedInput 
+          [ a spinx:NamedGraph ;
+            spinx:id :selectedPage ;
+            spinx:input :selectedPage ] ] ;
+    spinx:config [
+      a spinx:IncludedGraph ;
+      spinx:url <selectedQuantity.sparql> ;
+      spinx:syntax query:SPARQL_11 ] ] ;
+  spinx:input [
+    a spinx:ConstructGraph ;
+    spinx:input :selectedPage ;
+    spinx:config [
+      a spinx:IncludedGraph ;
+      spinx:url <zeroQuantityIfNotSelected.sparql> ;
+      spinx:syntax query:SPARQL_11 ] ] ] .
 
 :config
   a spinx:IncludedGraph ;
@@ -119,6 +128,20 @@ swi:OutputDataset
   spinx:syntax rdfSyntax:N3 .
 
 :selectedPage
+# a spinx:LoggedGraph ;
+# spinx:input [
+#  a spinx:DataflowGraph ;
+#  spinx:input
+#    [ a spinx:InlineDataset ;
+#      spinx:input swi:InputDataset ;
+#      spinx:namedInput 
+#        [ a spinx:NamedGraph ;
+#          spinx:id :config ;
+#          spinx:input :config ] ] ;
+#  spinx:config [
+#    a spinx:IncludedGraph ;
+#    spinx:url <pageChange.n3> ;
+#    spinx:syntax rdfSyntax:N3 ] ] .
  a spinx:LoggedGraph ;
  spinx:input [
   a spinx:LoadGraph ;
@@ -129,19 +152,11 @@ swi:OutputDataset
 :quantities
  a spinx:LoggedGraph ;
  spinx:input [
-  a spinx:ConstructGraph ;
-  spinx:input
-    [ a spinx:InlineDataset ;
-      spinx:input :inputData ] ;
+  a spinx:DataflowGraph ;
+  spinx:input :config ;
   spinx:config [
     a spinx:IncludedGraph ;
-    spinx:url <transformInput.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ]. 
-
-:inputData
-  a spinx:LoadGraph ;
-  spinx:url <../input/messageTot.xml> ;
-  spinx:syntax syntax:XML ;
-  spinx:pollingPeriod "1000"^^xsd:integer.
+    spinx:url <quantities.n3> ;
+    spinx:syntax rdfSyntax:N3 ] ] .
 
 

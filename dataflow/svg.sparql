@@ -40,6 +40,7 @@ CONSTRUCT {
     a xml:Element ;
     xml:namespace <http://www.w3.org/2000/svg> ;
     xml:nodeName "use"^^xsd:string ;
+    xml:active "true"^^xsd:boolean ;
     xml:hasAttribute ?href_colore .
   ?href_colore
     a xml:Attr ;
@@ -66,6 +67,12 @@ CONSTRUCT {
     xml:nodeName "fill"^^xsd:string ;
     xml:nodeValue ?fill_cerchio_piccolo_value .
 
+  ?menu_link_selected xml:hasAttribute ?selectedOpacity .
+  ?selectedOpacity
+    a xml:Attr ;
+    xml:nodeName "opacity"^^xsd:string ;
+    xml:nodeValue "0.3"^^xsd:string .
+
 }
 WHERE {
 
@@ -80,18 +87,18 @@ WHERE {
     :pallet ?pallet, ?selectedPallet .
   ?pallet
     :id ?palletId ;
-    :quantity ?productQuantityValue .
+    :quantity ?productQuantityValue ;
+    :level ?level .
   ?selectedPallet
     :id ?selectedPalletId ;
-    :quantity ?selectedProductQuantityValue .
-  BIND( xsd:integer(CEIL(?productQuantityValue/4)) AS ?level) .
+    :quantity ?selectedProductQuantityValue ;
+    :level ?selectedLevel .
   BIND( URI( CONCAT( STR(doc:numero_piccolo), "_", STR(?palletId) ) ) AS ?numero_piccolo ) .
   BIND( URI( CONCAT( STR(:href_numero_piccolo_), MD5(STR(?palletId)) ) ) AS ?href_numero_piccolo ) .
   BIND( CONCAT( "#numero_", STR(?productQuantityValue) ) AS ?href_numero_piccolo_value ) .
   BIND( URI( CONCAT( STR(doc:cerchio_piccolo), "_", STR(?palletId) ) ) AS ?cerchio_piccolo ) .
   BIND( URI( CONCAT( STR(:fill_cerchio_piccolo_), MD5(STR(?palletId)) ) ) AS ?fill_cerchio_piccolo ) .
 
-  BIND( xsd:integer(CEIL(?selectedProductQuantityValue/4)) AS ?selectedLevel) .
   GRAPH :config {
     swi:GraphRoot
       :passoIndicatore ?passoIndicatore ;
@@ -114,6 +121,7 @@ WHERE {
   BIND( CONCAT( "translate(0 ", STR((?maxPacchi - ?selectedProductQuantityValue) * ?passoIndicatore), ")" ) AS ?translate_indicatore ) .
 
   BIND( URI( CONCAT( STR(doc:menu_link), "_", STR(?selectedPalletId) ) ) AS ?menu_link_selected ) .
+  BIND( URI( CONCAT( STR(:selectedOpacity_), MD5(STR(?selectedPalletId)) ) ) AS ?selectedOpacity ) .
   BIND( CONCAT( "#scala_", STR(?selectedPalletId) ) AS ?href_scala_value ) .
   BIND( CONCAT( "#titolo_", STR(?selectedPalletId) ) AS ?href_titolo_value ) .
 

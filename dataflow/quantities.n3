@@ -1,0 +1,83 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix svg:     <http://uispin.org/svg#> .
+@prefix uix:     <http://www.swows.org/uix#> .
+@prefix tuio:    <http://www.swows.org/tuio#> .
+@prefix xml:    <http://www.swows.org/xml#> .
+@prefix sp:      <http://spinrdf.org/sp#> .
+@prefix spinx:   <http://www.swows.org/spinx#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix vp:   <http://www.swows.org/viewport#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+@prefix rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> .
+@prefix syntax:   <http://www.swows.org/syntaxes/> .
+@prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
+
+swi:OutputDataset
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :quantities ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :config ;
+          spinx:input swi:InputDataset ] ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <addLevels.sparql> ;
+    spinx:syntax query:SPARQL_11 ] . 
+
+:quantities
+ a spinx:UnionGraph ;
+ spinx:input [
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :inputQuantities ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :baseQuantities ;
+          spinx:input :baseQuantities ] ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <baseIfNotInput.sparql> ;
+    spinx:syntax query:SPARQL_11 ] ] ;
+ spinx:input :inputQuantities .
+ 
+
+:inputQuantities
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :inputData ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <transformInput.sparql> ;
+    spinx:syntax query:SPARQL_11 ] . 
+
+:inputData
+# a spinx:LoggedGraph ;
+# spinx:input [
+#  a spinx:JmsInputGraph ;
+#  spinx:subject "rfid_queue_pamp"^^xsd:string ;
+#  spinx:syntax syntax:XML ;
+#  spinx:url <tcp://10.0.0.109:61616> ].
+  a spinx:LoadGraph ;
+  spinx:url <../input/messageTot.xml> ;
+  spinx:syntax syntax:XML ;
+  spinx:pollingPeriod "1000"^^xsd:integer.
+
+:baseQuantities
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :baseData ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <transformInput.sparql> ;
+    spinx:syntax query:SPARQL_11 ] . 
+
+:baseData
+  a spinx:LoadGraph ;
+  spinx:url <../input/messageTot.xml> ;
+  spinx:syntax syntax:XML ;
+  spinx:pollingPeriod "1000"^^xsd:integer.
