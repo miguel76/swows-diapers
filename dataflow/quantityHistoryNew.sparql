@@ -1,0 +1,40 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time:   <http://www.swows.org/time#>
+
+CONSTRUCT {
+  swi:GraphRoot :state ?newState .
+  ?newState
+    :stateCount ?newStateCount ;
+    :pallet ?newPalletState .
+  ?newPalletState
+    :id ?palletId ;
+    :quantity ?newQuantityValue ;
+    :precQuantity ?currQuantityValue .
+}
+WHERE {
+  swi:GraphRoot :state ?currState .
+  ?currState
+    :stateCount ?currStateCount ;
+    :pallet ?palletState .
+  ?palletState
+    :id ?palletId ;
+    :newQuantity ?newQuantityValue ;
+    :quantity ?currQuantityValue  .
+  FILTER EXISTS {
+    ?currState
+      :pallet ?anyPalletState .
+    ?anyPalletState
+      :newQuantity ?anyNewQuantityValue ;
+      :quantity ?anyCurrQuantityValue  .
+      FILTER ( ?anyNewQuantityValue != ?anyCurrQuantityValue ).
+  }. 
+  BIND( ?currStateCount + 1 AS ?newStateCount ) .
+  BIND( URI( CONCAT( STR(:newState_), MD5(STR(?currState)) ) ) AS ?newState ) .
+  BIND( URI( CONCAT( STR(:newPalletState_), MD5(CONCAT(STR(?palletState))) ) ) AS ?newPalletState ) .
+}
+
