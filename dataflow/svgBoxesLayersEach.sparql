@@ -1,0 +1,26 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+  ?layer
+    a xml:Element ;
+    xml:namespace <http://www.w3.org/2000/svg> ;
+    xml:nodeName "g"^^xsd:string ;
+    xml:hasAttribute ?layer_id .
+  ?layer_id
+    a xml:Attr ;
+    xml:nodeName "id"^^xsd:string ;
+    xml:nodeValue ?layer_id_value .
+}
+WHERE {
+  swi:GraphRoot rdfs:member ?num_layer .
+  BIND( URI( CONCAT( STR(:layer_), MD5(STR(?num_layer)) ) ) AS ?layer ) .
+  BIND( URI( CONCAT( STR(:layer_id_), MD5(STR(?num_layer)) ) ) AS ?layer_id ) .
+  BIND( CONCAT( "layer_pacco_", STR(?num_layer) ) AS ?layer_id_value ) .
+}
+

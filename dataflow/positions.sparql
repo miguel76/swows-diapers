@@ -1,0 +1,49 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+CONSTRUCT {
+
+  swi:GraphRoot
+    :posIndicatore ?posIndicatore ;
+    :numeroVisualizzato ?numeroVisualizzato ;
+    :coloriVisualizzati <#colori> ;
+    :pacchi <#pacchi> .
+
+  <#pacchi>
+    :pacco ?pacco_fermo .
+
+  ?pacco_fermo :id ?id_box .
+  ?pacco_fermo :x ?start_pos_x .
+  ?pacco_fermo :y ?start_pos_y .
+
+  <#colori>
+    :colore ?color_number .
+
+}
+WHERE {
+  swi:GraphRoot :numPacchi ?numPacchi .
+
+  GRAPH :boxesStartingData {
+    ?box
+      :id ?id_box ;
+      :startPosX ?start_pos_x ;
+      :startPosY ?start_pos_y .
+  } .
+  FILTER( ?id_box <= ?numPacchi ). 
+  BIND( URI( CONCAT( STR(:pacco_fermo_), MD5(STR(?id_box)) ) ) AS ?pacco_fermo ) .
+
+
+  GRAPH :colorsEnum {
+    swi:GraphRoot rdfs:member ?color_number
+  }
+  FILTER( ?color_number <= FLOOR(?numPacchi / 4) ). 
+
+  BIND( ?numPacchi AS ?posIndicatore ) .
+  BIND( ?numPacchi AS ?numeroVisualizzato ) .
+
+}
+

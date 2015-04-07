@@ -1,0 +1,18 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX spinx: <http://www.swows.org/spinx#>
+
+CONSTRUCT {
+  swi:GraphRoot
+    spinx:intervalStart "1"^^xsd:integer ;
+    spinx:intervalEnd ?num_colori .
+}
+WHERE {
+  swi:GraphRoot :numPacchi ?num_pacchi .
+  BIND( xsd:integer( CEIL(?num_pacchi / 4) ) AS ?num_colori ) .
+}
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<store-state>
+	<update-time>2012-03-13T19:07:21</update-time>
+	<pallet id="p1">
+    		<product-type id="138">
+        		<available-quantity>13</available-quantity>
+        		<maximum-quantity>32</maximum-quantity>
+			<name>ESAPACK JUNIOR</name>
+    		</product>
+    		<product id="162">
+        		<available-quantity>9</available-quantity>
+        		<maximum-quantity>28</maximum-quantity>
+			<name>ESAPACK MAXI</name>
+    		</product>
+	</pallet>
+</store-state>

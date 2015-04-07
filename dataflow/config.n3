@@ -1,0 +1,56 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+
+swi:GraphRoot
+  :maxPacchi "32"^^xsd:integer ;
+  :passoIndicatore "20.78125"^^xsd:decimal ;
+  :passoPacchiH "-83.125"^^xsd:decimal ;
+  :passoPacchiO "158.5313"^^xsd:decimal ;
+  :passoPacchiPX "83.2246"^^xsd:decimal ;
+  :passoPacchiPY "-37.8848"^^xsd:decimal ;
+  :basePacchiX "845.1296"^^xsd:decimal ;
+  :basePacchiY "639.3079"^^xsd:decimal ;
+  :targetPacchiX "45"^^xsd:decimal ;
+  :targetPacchiY "688"^^xsd:decimal ;
+  :massimaAltezzaPacchi "0"^^xsd:decimal ;
+  :gravitazione "50"^^xsd:decimal ;
+  :color :color_0, :color_1, :color_2, :color_3, :color_4, :color_5, :color_6, :color_7, :color_8 .
+
+:color_0
+  :id "0"^^xsd:integer ;
+  :code "#E9E7D6"^^xsd:string .
+
+:color_1
+  :id "1"^^xsd:integer ;
+  :code "#C80011"^^xsd:string .
+
+:color_2
+  :id "2"^^xsd:integer ;
+  :code "#D5421E"^^xsd:string .
+
+:color_3
+  :id "3"^^xsd:integer ;
+  :code "#E8A531"^^xsd:string .
+
+:color_4
+  :id "4"^^xsd:integer ;
+  :code "#F9F167"^^xsd:string .
+
+:color_5
+  :id "5"^^xsd:integer ;
+  :code "#E4EE39"^^xsd:string .
+
+:color_6
+  :id "6"^^xsd:integer ;
+  :code "#D0EE31"^^xsd:string .
+
+:color_7
+  :id "7"^^xsd:integer ;
+  :code "#A6EF20"^^xsd:string .
+
+:color_8
+  :id "8"^^xsd:integer ;
+  :code "#6FD813"^^xsd:string .
+
+

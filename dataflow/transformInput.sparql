@@ -1,0 +1,22 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+  swi:GraphRoot :numPacchi ?num_pacchi .
+}
+WHERE {
+  doc:138 xml:hasChild ?product_quantity .
+  ?product_quantity
+    a xml:Element ;
+    xml:nodeName "available-quantity" ;
+    xml:hasChild ?product_quantity_txt .
+  ?product_quantity_txt
+    a xml:Text ;
+    xml:nodeValue ?product_quantity_value .
+  BIND( xsd:integer(?product_quantity_value) AS ?num_pacchi ).
+}
+

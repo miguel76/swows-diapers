@@ -1,0 +1,46 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix svg:     <http://uispin.org/svg#> .
+@prefix uix:     <http://www.swows.org/uix#> .
+@prefix tuio:    <http://www.swows.org/tuio#> .
+@prefix xml:    <http://www.swows.org/xml#> .
+@prefix sp:      <http://spinrdf.org/sp#> .
+@prefix spinx:   <http://www.swows.org/spinx#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix vp:   <http://www.swows.org/viewport#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+@prefix rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> .
+@prefix syntax:   <http://www.swows.org/syntaxes/> .
+@prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
+
+swi:OutputDataset
+  a spinx:UnionGraph ;
+  spinx:input
+    :svgBoxesLayersEach, :svgBoxesLayersFirst, :svgBoxesLayersNext .
+
+:svgBoxesLayersEach
+  a spinx:ConstructGraph ;
+  spinx:input
+    swi:InputDataset ;
+  spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svgBoxesLayersEach.sparql> ;
+      spinx:syntax query:SPARQL_11 ] .
+
+:svgBoxesLayersFirst
+  a spinx:ConstructGraph ;
+  spinx:input
+    swi:InputDataset ;
+  spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svgBoxesLayersFirst.sparql> ;
+      spinx:syntax query:SPARQL_11 ] .
+
+:svgBoxesLayersNext
+  a spinx:ConstructGraph ;
+  spinx:input
+    swi:InputDataset ;
+  spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svgBoxesLayersNext.sparql> ;
+      spinx:syntax query:SPARQL_11 ] .
+

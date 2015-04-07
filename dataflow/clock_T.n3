@@ -1,0 +1,9 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix time:   <http://www.swows.org/time#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+@prefix rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> .
+@prefix syntax:   <http://www.swows.org/syntaxes/> .
+
+swi:GraphRoot time:systemTime "6064173743"^^xsd:integer .
+

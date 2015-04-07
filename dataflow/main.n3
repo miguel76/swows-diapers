@@ -1,0 +1,111 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix svg:     <http://uispin.org/svg#> .
+@prefix uix:     <http://www.swows.org/uix#> .
+@prefix tuio:    <http://www.swows.org/tuio#> .
+@prefix xml:    <http://www.swows.org/xml#> .
+@prefix sp:      <http://spinrdf.org/sp#> .
+@prefix spinx:   <http://www.swows.org/spinx#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix vp:   <http://www.swows.org/viewport#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+@prefix rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> .
+@prefix syntax:   <http://www.swows.org/syntaxes/> .
+@prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
+
+swi:OutputDataset
+  a spinx:DataflowGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+       spinx:input
+        :instantData ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :config ;
+          spinx:input :config ] ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :possibleBoxesEnum ;
+          spinx:input :possibleBoxesEnum ] ] ;
+      spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svg.n3> ;
+      spinx:syntax rdfSyntax:N3 ] .
+
+:possibleBoxesEnum
+  a spinx:IntegerRangeFromGraph ;
+  spinx:input
+    [ a spinx:ConstructGraph ;
+      spinx:input :config ;
+      spinx:config [
+        a spinx:IncludedGraph ;
+        spinx:url <possibleBoxesEnumInput.sparql> ;
+        spinx:syntax query:SPARQL_11 ] ].
+
+:instantData
+#  a spinx:LoggedGraph ;
+#  spinx:input [
+  a spinx:UnionGraph ;
+  spinx:input :genericInstantData ;
+  spinx:input :colors ;
+  spinx:input :boxesPositions 
+ .
+
+:genericInstantData
+  a spinx:ConstructGraph ;
+  spinx:input :quantity ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <genericInstantData.sparql> ;
+    spinx:syntax query:SPARQL_11 ] .
+
+:colors
+  a spinx:DataflowGraph ;
+  spinx:input :quantity ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <colors.n3> ;
+    spinx:syntax rdfSyntax:N3 ] .
+
+:boxesPositions
+  a spinx:DataflowGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :quantity ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :config ;
+          spinx:input :config ] ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :possibleBoxesEnum ;
+          spinx:input :possibleBoxesEnum ] ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :clock ;
+          spinx:input swi:InputDataset ] ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <boxesPositions.n3> ;
+    spinx:syntax rdfSyntax:N3 ] .
+
+:config
+  a spinx:IncludedGraph ;
+  spinx:url <config.n3> ;
+  spinx:syntax rdfSyntax:N3 .
+
+:quantity
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :inputData ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <transformInput.sparql> ;
+    spinx:syntax query:SPARQL_11 ] .
+
+:inputData
+  a spinx:LoadGraph ;
+  spinx:url <../input/pampers.xml> ;
+  spinx:syntax syntax:XML ;
+  spinx:pollingPeriod "2000"^^xsd:integer.
+

@@ -1,0 +1,102 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+CONSTRUCT {
+
+  doc:numero xml:hasAttribute <#href_numero> .
+  <#href_numero>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_numero_value .
+
+  doc:numero_138 xml:hasAttribute <#href_numero> .
+
+  doc:posizione_indicatore xml:hasAttribute <#transform_indicatore> .
+  <#transform_indicatore>
+    a xml:Attr ;
+    xml:nodeName "transform"^^xsd:string ;
+    xml:nodeValue ?translate_indicatore .
+
+  doc:layer_colori xml:hasChild ?use_colore .
+  ?use_colore 
+    a xml:Element ;
+    xml:namespace <http://www.w3.org/2000/svg> ;
+    xml:nodeName "use"^^xsd:string ;
+    xml:hasAttribute ?href_colore .
+  ?href_colore
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_colore_value .
+
+  doc:cerchio_numero_colore xml:hasAttribute <#href_cerchio> .
+  <#href_cerchio>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_cerchio_value .
+
+  doc:cerchio_138 xml:hasAttribute <#fill_cerchio_138> .
+  <#fill_cerchio_138>
+    a xml:Attr ;
+    xml:nodeName "fill"^^xsd:string ;
+    xml:nodeValue ?fill_cerchio_138_value .
+
+  ?layer_pacco xml:hasChild ?use_pacco .
+
+  ?use_pacco
+    a xml:Element ;
+    xml:namespace <http://www.w3.org/2000/svg> ;
+    xml:nodeName "use"^^xsd:string ;
+    xml:hasAttribute <#href_pacco>, ?transform_pacco .
+  <#href_pacco>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue "#pacco138"^^xsd:string .
+  ?transform_pacco
+    a xml:Attr ;
+    xml:nodeName "transform"^^xsd:string ;
+    xml:nodeValue ?translate_pacco .
+
+}
+WHERE {
+  swi:GraphRoot
+    :posIndicatore ?posIndicatore ;
+    :numeroVisualizzato ?numeroVisualizzato .
+  OPTIONAL {
+    swi:GraphRoot :coloriVisualizzati ?colori .
+    ?colori :colore ?num_colore } .
+  OPTIONAL {
+    swi:GraphRoot :pacchi ?pos_pacchi } .
+  BIND( xsd:integer(CEIL(?posIndicatore/4)) AS ?level) .
+  GRAPH :config {
+    swi:GraphRoot :passoIndicatore ?passoIndicatore .
+    swi:GraphRoot :color ?color_item .
+    ?color_item :id ?level .
+    ?color_item :code ?fill_cerchio_138_value .
+  } .
+  BIND( CONCAT( "#numero_", STR(?numeroVisualizzato) ) AS ?href_numero_value ) .
+  BIND( CONCAT( "translate(0 -", STR(?posIndicatore * ?passoIndicatore), ")" ) AS ?translate_indicatore ) .
+  BIND( URI( CONCAT( STR(:use_colore_), MD5(STR(?num_colore)) ) ) AS ?use_colore ) .
+  BIND( URI( CONCAT( STR(:href_colore_), MD5(STR(?num_colore)) ) ) AS ?href_colore ) .
+  BIND( CONCAT( "#colore_", STR(?num_colore) ) AS ?href_colore_value ) .
+  BIND( CONCAT( "#cerchio_numero_col_", STR(?level) ) AS ?href_cerchio_value ) .
+
+ OPTIONAL {
+  ?pos_pacchi :pacco ?pos_pacco .
+  ?pos_pacco :id ?pos_pacco_id .
+  ?pos_pacco :x ?pos_pacco_x .
+  ?pos_pacco :y ?pos_pacco_y .
+  BIND( URI( CONCAT( STR(:use_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?use_pacco ) .
+  BIND( URI( CONCAT( STR(:transform_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?transform_pacco ) .
+  BIND( CONCAT( "translate(", STR(?pos_pacco_x), " ", STR(?pos_pacco_y), ")" ) AS ?translate_pacco ) .
+  BIND( URI( CONCAT( STR(:layer_), MD5(STR(?pos_pacco_id)) ) ) AS ?layer_pacco ) .
+ } .
+}
+

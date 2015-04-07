@@ -1,0 +1,39 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time:   <http://www.swows.org/time#>
+
+CONSTRUCT {
+  ?flyingBox
+    :id ?id_box ;
+    :stateCount ?currStateCount ;
+    :startTime ?systemTime ;
+    :endTime ?endTime .
+}
+WHERE {
+  swi:GraphRoot :state ?currState .
+  ?currState
+    :stateCount ?currStateCount ;
+    :numPacchi ?currNumPacchi ;
+    :precNumPacchi ?currPrecNumPacchi .
+  GRAPH :boxesStartingData {
+    ?box
+      :id ?id_box ;
+      :tripTime ?tripTime .
+  } .
+  GRAPH :clock {
+    swi:GraphRoot time:systemTime ?systemTime
+  }
+  FILTER NOT EXISTS {
+    GRAPH :flyingBoxes {
+      ?flyingBox :id ?id_box
+    }
+  } .
+  FILTER( ?id_box <= ?currPrecNumPacchi && ?id_box > ?currNumPacchi ). 
+  BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?currState),STR(?id_box))) ) ) AS ?flyingBox ) .
+  BIND( ?systemTime + ?tripTime AS ?endTime ) .
+}
+

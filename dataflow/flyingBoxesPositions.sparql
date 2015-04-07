@@ -1,0 +1,41 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time:   <http://www.swows.org/time#>
+
+CONSTRUCT {
+  :Pacchi
+    :pacco ?flying_box .
+  ?flying_box
+    :id ?id_box ;
+    :x ?x ;
+    :y ?y .
+}
+WHERE {
+  GRAPH :boxesStartingData {
+    ?box
+      :id ?id_box ;
+      :startPosX ?x0 ;
+      :startPosY ?y0 ;
+      :startSpeedX ?vx ;
+      :startSpeedY ?vy .
+  } .
+  ?flying_box
+    :id ?id_box ;
+    :startTime ?flightStartTime ;
+    :endTime ?flightEndTime .
+  GRAPH :config {
+    swi:GraphRoot :gravitazione ?g .
+  } .
+  GRAPH :clock {
+    swi:GraphRoot time:systemTime ?systemTime
+  }
+  BIND( (?systemTime - ?flightStartTime) / 1000 AS ?t ) .
+  BIND( ?x0 + ?vx * ?t AS ?x ) .
+  BIND( ?y0 + ?vy * ?t + ?g * ?t * ?t / 2 AS ?y ) .
+  FILTER( ?systemTime <= ?flightEndTime ). 
+}
+

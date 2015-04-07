@@ -1,0 +1,29 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix spinx:   <http://www.swows.org/spinx#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+@prefix rdfSyntax:   <http://www.swows.org/syntaxes/RDF/> .
+@prefix syntax:   <http://www.swows.org/syntaxes/> .
+@prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
+
+swi:OutputDataset
+  a spinx:ConstructGraph ;
+  spinx:input
+    :colorsEnum ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <colors.sparql> ;
+    spinx:syntax query:SPARQL_11 ] .
+
+:colorsEnum
+  a spinx:IntegerRangeFromGraph ;
+  spinx:input
+    [ a spinx:ConstructGraph ;
+      spinx:input swi:InputDataset ;
+      spinx:config [
+        a spinx:IncludedGraph ;
+        spinx:url <colorsEnumInput.sparql> ;
+        spinx:syntax query:SPARQL_11 ] ].
+
+
+
