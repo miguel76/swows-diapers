@@ -20,8 +20,8 @@ swi:OutputDataset
   spinx:input :svgDoc .
 
 :svgVar
- a spinx:LoggedGraph ;
- spinx:input [
+# a spinx:LoggedGraph ;
+# spinx:input [
   a spinx:ConstructGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
@@ -37,17 +37,17 @@ swi:OutputDataset
   spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svg.sparql> ;
-      spinx:syntax query:SPARQL_11 ] ].
+      spinx:syntax query:SPARQL_11 ] .
 
 :svgVarPacchi
- a spinx:LoggedGraph ;
- spinx:input [
+# a spinx:LoggedGraph ;
+# spinx:input [
   a spinx:ConstructGraph ;
   spinx:input :boxesPositions ;
   spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svgPacchi.sparql> ;
-      spinx:syntax query:SPARQL_11 ] ]
+      spinx:syntax query:SPARQL_11 ] 
 .
 
 :svgBoxesLayers
