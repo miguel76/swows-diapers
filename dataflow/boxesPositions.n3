@@ -27,8 +27,8 @@ swi:OutputDataset
     spinx:syntax query:SPARQL_11 ] .
 
 :allPositions
-# a spinx:LoggedGraph ;
-# spinx:input [
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:UnionGraph ;
   spinx:input [
   a spinx:ConstructGraph ;
@@ -64,11 +64,11 @@ swi:OutputDataset
     a spinx:IncludedGraph ;
     spinx:url <flyingBoxesPositions.sparql> ;
 #    spinx:url <emptyConstruct.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ] .
+    spinx:syntax query:SPARQL_11 ] ] ] .
 
 :boxesStartingData
-# a spinx:LoggedGraph ;
-# spinx:input [
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:ConstructGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
@@ -81,19 +81,15 @@ swi:OutputDataset
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <boxesStartingData.sparql> ;
-    spinx:syntax query:SPARQL_11 ] .
+    spinx:syntax query:SPARQL_11 ] ] .
 
 :flyingBoxes
-#  a spinx:LoggedGraph ;
-#  spinx:input [
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:DataflowGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
       spinx:input swi:InputDataset ;
-      spinx:namedInput 
-        [ a spinx:NamedGraph ;
-          spinx:id :config ;
-          spinx:input :config ] ;
       spinx:namedInput 
         [ a spinx:NamedGraph ;
           spinx:id :boxesStartingData ;
@@ -105,7 +101,7 @@ swi:OutputDataset
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <flyingBoxes.n3> ;
-    spinx:syntax rdfSyntax:N3 ]  .
+    spinx:syntax rdfSyntax:N3 ] ] .
 
 #:flyingBoxes
 #  a spinx:IncludedGraph ;
@@ -118,6 +114,8 @@ swi:OutputDataset
   spinx:id :config .
 
 :clock
+# a spinx:LoggedGraph ;
+# spinx:input [
   a spinx:SelectGraph ;
   spinx:input swi:InputDataset ;
   spinx:id :clock .

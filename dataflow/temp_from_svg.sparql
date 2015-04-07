@@ -1,0 +1,7 @@
+  ?menu_link_selected xml:hasAttribute <#selectedOpacity> .
+  <#selectedOpacity>
+    a xml:Attr ;
+    xml:nodeName "opacity"^^xsd:string ;
+    xml:nodeValue "0.3"^^xsd:string .
+
+

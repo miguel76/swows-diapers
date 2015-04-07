@@ -5,6 +5,7 @@ PREFIX swi:   <http://www.swows.org/instance#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
+PREFIX tuio:  <http://www.swows.org/tuio#>
 
 CONSTRUCT {
   swi:GraphRoot
@@ -14,40 +15,28 @@ CONSTRUCT {
     :pacco ?flyingBox .
   ?flyingBox
     :id ?id_box ;
-    :stateCount ?currStateCount ;
     :startTime ?systemTime ;
     :endTime ?endTime .
 }
 WHERE {
-  swi:GraphRoot :state ?currState .
-  ?currState
-    :stateCount ?currStateCount ;
-    :pallet ?pallet .
-  ?pallet
-    :id ?palletId ;
-    :quantity ?quantityValue ;
-    :precQuantity ?precQuantityValue .
+  swi:GraphRoot :pallet ?pallet .
+  ?pallet :id ?palletId .
+  GRAPH swi:AddedGraph {
+    ?pallet :quantity ?newQuantity .
+  }
+  GRAPH swi:DeletedGraph {
+    ?pallet :quantity ?prevQuantity .
+  }
   GRAPH :boxesStartingData {
     ?box
       :id ?id_box ;
       :tripTime ?tripTime .
   } .
   GRAPH :clock {
-    swi:GraphRoot time:systemTime ?systemTime
+    tuio:defaultSource tuio:updateTime ?systemTime
   }
-  FILTER NOT EXISTS {
-    GRAPH :flyingBoxes {
-      swi:GraphRoot :pallet ?pallet .
-      ?pallet
-        :id ?palletId ;
-        :pacco ?flyingBox .
-      ?flyingBox
-        :id ?id_box ;
-        :stateCount ?currStateCount .
-    }
-  } .
-  FILTER( ?id_box <= ?precQuantityValue && ?id_box > ?quantityValue ). 
-  BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?currState),STR(?palletId),STR(?id_box))) ) ) AS ?flyingBox ) .
+  FILTER( ?id_box <= ?prevQuantity && ?id_box > ?newQuantity ). 
+  BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?systemTime),STR(?palletId),STR(?id_box))) ) ) AS ?flyingBox ) .
   BIND( ?systemTime + ?tripTime AS ?endTime ) .
 }
 

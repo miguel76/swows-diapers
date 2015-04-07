@@ -41,6 +41,6 @@ WHERE {
   BIND( -1 * afn:sqrt(2 * ?g * (?y0 - ?yM)) AS ?vy ) .
   BIND( -1 * ?vy / ?g + afn:sqrt((?yF - ?yM) / ?g) AS ?t ) .
   BIND( (?xF - ?x0) / ?t AS ?vx ) .
-  BIND( xsd:integer( CEIL(?t * 1000) ) AS ?tripTime ) .
+  BIND( ?t AS ?tripTime ) .
 }
 

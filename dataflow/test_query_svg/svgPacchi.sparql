@@ -1,0 +1,42 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
+
+CONSTRUCT {
+
+  ?layer_pacco xml:hasChild ?use_pacco .
+
+  ?use_pacco
+    a xml:Element ;
+    xml:namespace <http://www.w3.org/2000/svg> ;
+    xml:nodeName "use"^^xsd:string ;
+    xml:hasAttribute <#href_pacco>, ?transform_pacco .
+  <#href_pacco>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue "#pacco_138"^^xsd:string .
+  ?transform_pacco
+    a xml:Attr ;
+    xml:nodeName "transform"^^xsd:string ;
+    xml:nodeValue ?translate_pacco .
+
+}
+WHERE {
+
+  swi:GraphRoot :pacco ?pos_pacco .
+  ?pos_pacco
+    :id ?pos_pacco_id ;
+    :x ?pos_pacco_x ;
+    :y ?pos_pacco_y .
+  BIND( URI( CONCAT( STR(:use_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?use_pacco ) .
+  BIND( URI( CONCAT( STR(:transform_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?transform_pacco ) .
+  BIND( CONCAT( "translate(", STR(?pos_pacco_x), " ", STR(?pos_pacco_y), ")" ) AS ?translate_pacco ) .
+  BIND( URI( CONCAT( STR(:layer_), MD5(STR(?pos_pacco_id)) ) ) AS ?layer_pacco ) .
+
+}
+

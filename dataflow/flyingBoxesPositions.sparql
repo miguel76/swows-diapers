@@ -5,6 +5,7 @@ PREFIX swi:   <http://www.swows.org/instance#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
+PREFIX tuio:  <http://www.swows.org/tuio#>
 
 CONSTRUCT {
   swi:GraphRoot
@@ -39,9 +40,9 @@ WHERE {
     swi:GraphRoot :gravitazione ?g .
   } .
   GRAPH :clock {
-    swi:GraphRoot time:systemTime ?systemTime
+    tuio:defaultSource tuio:updateTime ?systemTime
   }
-  BIND( (?systemTime - ?flightStartTime) / 1000 AS ?t ) .
+  BIND( ?systemTime - ?flightStartTime AS ?t ) .
   BIND( ?x0 + ?vx * ?t AS ?x ) .
   BIND( ?y0 + ?vy * ?t + ?g * ?t * ?t / 2 AS ?y ) .
   FILTER( ?systemTime <= ?flightEndTime ). 

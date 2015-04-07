@@ -53,6 +53,12 @@ CONSTRUCT {
     xml:nodeName "fill"^^xsd:string ;
     xml:nodeValue ?fill_cerchio_grande_value .
 
+  ?menu_link_selected xml:hasAttribute <#selectedOpacity> .
+  <#selectedOpacity>
+    a xml:Attr ;
+    xml:nodeName "opacity"^^xsd:string ;
+    xml:nodeValue "0.3"^^xsd:string .
+
   ?numero_piccolo xml:hasAttribute ?href_numero_piccolo .
   ?href_numero_piccolo
     a xml:Attr ;
@@ -69,7 +75,7 @@ CONSTRUCT {
 }
 WHERE {
 
-  GRAPH :selectedPage {
+  GRAPH dir:selectedPage.n3 {
     swi:GraphRoot :selectedPage ?palletPage .
     ?palletPage
       a :Pallet ;
@@ -92,7 +98,7 @@ WHERE {
   BIND( URI( CONCAT( STR(:fill_cerchio_piccolo_), MD5(STR(?palletId)) ) ) AS ?fill_cerchio_piccolo ) .
 
   BIND( xsd:integer(CEIL(?selectedProductQuantityValue/4)) AS ?selectedLevel) .
-  GRAPH :config {
+  GRAPH dir:config.n3 {
     swi:GraphRoot
       :passoIndicatore ?passoIndicatore ;
       :pallet_config ?selectedPalletConfig, ?palletConfig .

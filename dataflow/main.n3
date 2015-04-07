@@ -28,6 +28,10 @@ swi:OutputDataset
           spinx:input :config ] ;
       spinx:namedInput 
         [ a spinx:NamedGraph ;
+          spinx:id :boxesPositions ;
+          spinx:input :boxesPositions ] ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
           spinx:id :possibleBoxesEnum ;
           spinx:input :possibleBoxesEnum ] ] ;
       spinx:config
@@ -36,6 +40,8 @@ swi:OutputDataset
       spinx:syntax rdfSyntax:N3 ] .
 
 :possibleBoxesEnum
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:IntegerRangeFromGraph ;
   spinx:input
     [ a spinx:ConstructGraph ;
@@ -43,28 +49,29 @@ swi:OutputDataset
       spinx:config [
         a spinx:IncludedGraph ;
         spinx:url <possibleBoxesEnumInput.sparql> ;
-        spinx:syntax query:SPARQL_11 ] ].
+        spinx:syntax query:SPARQL_11 ] ] ].
 
 :instantData
-#  a spinx:LoggedGraph ;
-#  spinx:input [
+  a spinx:LoggedGraph ;
+  spinx:input [
   a spinx:UnionGraph ;
   spinx:input :quantities ;
-  spinx:input :colors ;
-  spinx:input :boxesPositions 
+  spinx:input :colors  ]
  .
 
 :colors
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:DataflowGraph ;
   spinx:input :quantity ;
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <colors.n3> ;
-    spinx:syntax rdfSyntax:N3 ] .
+    spinx:syntax rdfSyntax:N3 ] ] .
 
 :boxesPositions
-# a spinx:LoggedGraph ;
-# spinx:input [
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:DataflowGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
@@ -88,7 +95,7 @@ swi:OutputDataset
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <boxesPositions.n3> ;
-    spinx:syntax rdfSyntax:N3 ] .
+    spinx:syntax rdfSyntax:N3 ] ] .
 
 :quantity
  a spinx:LoggedGraph ;
@@ -117,9 +124,11 @@ swi:OutputDataset
   a spinx:LoadGraph ;
   spinx:url <selectedPage.n3> ;
   spinx:syntax rdfSyntax:N3 ;
-  spinx:pollingPeriod "2000"^^xsd:integer ].
+  spinx:pollingPeriod "1000"^^xsd:integer ].
 
 :quantities
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:ConstructGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
@@ -127,11 +136,12 @@ swi:OutputDataset
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <transformInput.sparql> ;
-    spinx:syntax query:SPARQL_11 ] . 
+    spinx:syntax query:SPARQL_11 ] ]. 
 
 :inputData
   a spinx:LoadGraph ;
   spinx:url <../input/messageTot.xml> ;
   spinx:syntax syntax:XML ;
-  spinx:pollingPeriod "2000"^^xsd:integer.
+  spinx:pollingPeriod "1000"^^xsd:integer.
+
 

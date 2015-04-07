@@ -1,0 +1,183 @@
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_c7af0926b294e47e52e46cfebe173f20>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              2 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1103.6274 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              661.0166 .
+
+<http://www.swows.org/xml/instance#162>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              "162" ;
+      <http://www.cattid.uniroma1.it/2012/pampers#quantity>
+              18 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#flyingBox_2f99a58171364a3e596a8ac25f750e2c>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              19 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1178.934100000000000000000000 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              366.401400000000000000000000000000000000000000000 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_22831c6e4371c1cc55f8d95704523d6c>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              13 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1262.1587 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              411.6416 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_bc573864331a9e42e4511de6f678aa83>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              6 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1103.6274 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              577.8916 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_fc528592c3858f90196fbfacc814f235>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              3 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1178.9341 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              698.9014 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_6b5bf4d4122957763ce3b07201e4003e>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              14 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1103.6274 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              411.6416 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_bbc9e48517c090672f767062b39607c5>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              10 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1103.6274 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              494.7666 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_f5f699f14ef1279e76bc576c0459b25a>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              11 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1178.9341 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              532.6514 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_030862565f5882a522a10504b2c90dc9>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              15 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1178.9341 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              449.5264 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_4462bf0ddbe0d0da40e1e828ebebeb11>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              1 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1262.1587 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              661.0166 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_e2e322ec94862e9e45b4fc2951fed25d>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              18 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1103.6274 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              328.5166 .
+
+<http://www.swows.org/instance#GraphRoot>
+      <http://www.cattid.uniroma1.it/2012/pampers#coloriVisualizzati>
+              <file:///home/miguel/git/SWOWS/swows/#colori> ;
+      <http://www.cattid.uniroma1.it/2012/pampers#pacco>
+              <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_c7af0926b294e47e52e46cfebe173f20> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_22831c6e4371c1cc55f8d95704523d6c> , <http://www.cattid.uniroma1.it/2012/pampers#flyingBox_2f99a58171364a3e596a8ac25f750e2c> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_bc573864331a9e42e4511de6f678aa83> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_fc528592c3858f90196fbfacc814f235> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_6b5bf4d4122957763ce3b07201e4003e> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_bbc9e48517c090672f767062b39607c5> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_030862565f5882a522a10504b2c90dc9> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_f5f699f14ef1279e76bc576c0459b25a> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_4462bf0ddbe0d0da40e1e828ebebeb11> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_e2e322ec94862e9e45b4fc2951fed25d> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_e83ca0372ed87246d0de7aaba7ca05cc> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_a981f2b708044d6fb4a71a1463242520> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_23ef43a8ba7034f8b17f26f28a9a3792> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_efb76cff97aaf057654ef2f38cd77d73> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_97d0145823aeb8ed80617be62e08bdcc> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_5c50b4df4b176845cd235b6a510c6903> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_7773ceea46ef8c457d0f6af32db4e51b> , <http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_9327969053c0068dd9e07c529866b94d> ;
+      <http://www.cattid.uniroma1.it/2012/pampers#pallet>
+              <http://www.swows.org/xml/instance#138> , <http://www.swows.org/xml/instance#162> , <http://www.swows.org/xml/instance#150> .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_e83ca0372ed87246d0de7aaba7ca05cc>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              17 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1262.1587 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              328.5166 .
+
+<http://www.swows.org/xml/instance#138>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              "138" ;
+      <http://www.cattid.uniroma1.it/2012/pampers#quantity>
+              29 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_a981f2b708044d6fb4a71a1463242520>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              5 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1262.1587 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              577.8916 .
+
+<file:///home/miguel/git/SWOWS/swows/#colori>
+      <http://www.cattid.uniroma1.it/2012/pampers#colore>
+              5 , 3 , 4 , 2 , 1 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_23ef43a8ba7034f8b17f26f28a9a3792>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              12 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1020.4028 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              532.6514 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_efb76cff97aaf057654ef2f38cd77d73>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              8 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1020.4028 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              615.7764 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_97d0145823aeb8ed80617be62e08bdcc>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              7 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1178.9341 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              615.7764 .
+
+<http://www.swows.org/xml/instance#150>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              "150" ;
+      <http://www.cattid.uniroma1.it/2012/pampers#quantity>
+              28 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_5c50b4df4b176845cd235b6a510c6903>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              9 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1262.1587 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              494.7666 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_7773ceea46ef8c457d0f6af32db4e51b>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              16 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1020.4028 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              449.5264 .
+
+<http://www.cattid.uniroma1.it/2012/pampers#pacco_fermo_9327969053c0068dd9e07c529866b94d>
+      <http://www.cattid.uniroma1.it/2012/pampers#id>
+              4 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#x>
+              1020.4028 ;
+      <http://www.cattid.uniroma1.it/2012/pampers#y>
+              698.9014 .
+
+

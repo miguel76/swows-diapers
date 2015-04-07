@@ -13,124 +13,31 @@
 @prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
 
 swi:OutputDataset
-  a spinx:LoggedGraph ;
-  spinx:input [
-    a spinx:UpdatableGraph ;
-    spinx:addGraph [
-      a spinx:ConstructGraph ;
+    a spinx:UpdatableFromEventsGraph ;
+    spinx:addConstruct [
       spinx:input
         [ a spinx:InlineDataset ;
-          spinx:input :quantityCurr ;
+          spinx:input swi:InputDataset ;
           spinx:namedInput 
             [ a spinx:NamedGraph ;
-              spinx:id :flyingBoxes ;
-              spinx:input swi:OutputDataset ] ;
+              spinx:id :clock ;
+              spinx:input :clock ] ;
           spinx:namedInput 
             [ a spinx:NamedGraph ;
               spinx:id :boxesStartingData ;
-              spinx:input :boxesStartingData ] ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :clock ;
-              spinx:input :clock ] ] ;
-      spinx:config [
+              spinx:input :boxesStartingData ] ] ;
+     spinx:eventsFrom swi:InputDataset ;
+     spinx:config [
         a spinx:IncludedGraph ;
         spinx:url <flyingBoxesNew.sparql> ;
         spinx:syntax query:SPARQL_11 ] ] ;
-    spinx:deleteGraph [
+    spinx:deleteConstruct [
       a spinx:ConstructGraph ;
-      spinx:input
-        [ a spinx:InlineDataset ;
-          spinx:input :quantityCurr ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :flyingBoxes ;
-              spinx:input swi:OutputDataset ] ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :clock ;
-              spinx:input :clock ] ] ;
+      spinx:eventsFrom :clock ;
       spinx:config [
         a spinx:IncludedGraph ;
         spinx:url <flyingBoxesDelete.sparql> ;
-        spinx:syntax query:SPARQL_11 ] ] ] .
-
-:quantityHistory
-# a spinx:LoggedGraph ;
-# spinx:input [
-  a spinx:UpdatableGraph ;
-  spinx:addGraph [
-    a spinx:UnionGraph ;
-    spinx:input [
-#     a spinx:LoggedGraph ;
-#     spinx:input [
-      a spinx:ConstructGraph ;
-      spinx:input :quantityCompare ;
-      spinx:config [
-        a spinx:IncludedGraph ;
-        spinx:url <quantityHistoryNew.sparql> ;
-        spinx:syntax query:SPARQL_11 ] ] ;
-    spinx:input [
-#     a spinx:LoggedGraph ;
-#     spinx:input [
-      a spinx:ConstructGraph ;
-      spinx:input
-        [ a spinx:InlineDataset ;
-          spinx:input swi:InputDataset ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :quantityCurr ;
-              spinx:input :quantityCurr ] ] ;
-      spinx:config [
-        a spinx:IncludedGraph ;
-        spinx:url <quantityHistoryStart.sparql> ;
-        spinx:syntax query:SPARQL_11 ] ] ]  ;
-  spinx:deleteGraph [
-    a spinx:ConstructGraph ;
-    spinx:input
-      [ a spinx:InlineDataset ;
-        spinx:input swi:InputDataset ;
-        spinx:namedInput 
-          [ a spinx:NamedGraph ;
-            spinx:id :quantityCurr ;
-            spinx:input :quantityCurr ] ] ;
-    spinx:config [
-      a spinx:IncludedGraph ;
-      spinx:url <quantityHistoryDelete.sparql> ;
-      spinx:syntax query:SPARQL_11 ] ] .
-
-:quantityCompare
-# a spinx:LoggedGraph ;
-# spinx:input [
-      a spinx:ConstructGraph ;
-      spinx:input
-        [ a spinx:InlineDataset ;
-          spinx:input swi:InputDataset ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :quantityCurr ;
-              spinx:input :quantityCurr ] ] ;
-      spinx:config [
-        a spinx:IncludedGraph ;
-        spinx:url <quantityCompare.sparql> ;
-        spinx:syntax query:SPARQL_11 ] .
-
-:quantityCurr
- a spinx:LoggedGraph ;
- spinx:input [
-  a spinx:ConstructGraph ;
-  spinx:input
-    [ a spinx:InlineDataset ;
-      spinx:input :quantityHistory ] ;
-   spinx:config [
-    a spinx:IncludedGraph ;
-    spinx:url <quantityHistoryCurr.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ] .
-
-:config
-  a spinx:SelectGraph ;
-  spinx:input swi:InputDataset ;
-  spinx:id :config .
+        spinx:syntax query:SPARQL_11 ] ] .
 
 :clock
   a spinx:SelectGraph ;

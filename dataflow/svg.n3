@@ -19,34 +19,51 @@ swi:OutputDataset
   spinx:input :svgVar ; 
 #  spinx:input
 #    [ a spinx:LoggedGraph ;
+  spinx:input :svgVarPacchi ; 
   spinx:input :svgBoxesLayers ; 
   spinx:input :svgDoc .
 
 :svgVar
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:ConstructGraph ;
   spinx:input
-    swi:InputDataset ;
+    [ a spinx:InlineDataset ;
+      spinx:input swi:InputDataset ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :selectedPage ;
+          spinx:input :selectedPage ] ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :config ;
+          spinx:input :config ] ] ;
   spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svg.sparql> ;
-      spinx:syntax query:SPARQL_11 ]
+      spinx:syntax query:SPARQL_11 ] ]
+.
+
+:svgVarPacchi
+ a spinx:LoggedGraph ;
+ spinx:input [
+  a spinx:ConstructGraph ;
+  spinx:input :boxesPositions ;
+  spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svgPacchi.sparql> ;
+      spinx:syntax query:SPARQL_11 ] ]
 .
 
 :svgBoxesLayers
   a spinx:DataflowGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
-      spinx:input
-         [ a spinx:SelectGraph ;
-           spinx:id :possibleBoxesEnum ;
-           spinx:input swi:InputDataset ] ;
+      spinx:input :possibleBoxesEnum ;
       spinx:namedInput 
         [ a spinx:NamedGraph ;
           spinx:id :config ;
-          spinx:input
-            [ a spinx:SelectGraph ;
-              spinx:id :config ;
-              spinx:input swi:InputDataset ] ] ] ;
+          spinx:input :config ] ] ;
   spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svgBoxesLayers.n3> ;
@@ -56,6 +73,26 @@ swi:OutputDataset
   a spinx:IncludedGraph ;
   spinx:url <svg/pallet.svg> ;
   spinx:syntax syntax:XML .
+
+:config
+  a spinx:SelectGraph ;
+  spinx:id :config ;
+  spinx:input swi:InputDataset .
+
+:selectedPage
+  a spinx:SelectGraph ;
+  spinx:id :selectedPage ;
+  spinx:input swi:InputDataset .
+
+:possibleBoxesEnum
+  a spinx:SelectGraph ;
+  spinx:id :possibleBoxesEnum ;
+  spinx:input swi:InputDataset .
+
+:boxesPositions
+  a spinx:SelectGraph ;
+  spinx:id :boxesPositions ;
+  spinx:input swi:InputDataset .
 
 
 

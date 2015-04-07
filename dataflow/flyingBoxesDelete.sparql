@@ -5,19 +5,17 @@ PREFIX swi:   <http://www.swows.org/instance#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
+PREFIX tuio:  <http://www.swows.org/tuio#>
 
 CONSTRUCT {
   ?pallet :pacco ?flyingBox .
   ?flyingBox
     :id ?id_box ;
-    :stateCount ?oldStateCount ;
     :startTime ?startTime ;
     :endTime ?endTime .
 }
 WHERE {
-  swi:GraphRoot :state ?currState .
-  ?currState :stateCount ?currStateCount .
-  GRAPH :flyingBoxes {
+  GRAPH swi:ThisGraph {
     swi:GraphRoot
       :pallet ?pallet .
     ?pallet
@@ -25,13 +23,12 @@ WHERE {
       :pacco ?flyingBox .
     ?flyingBox
       :id ?id_box ;
-      :stateCount ?oldStateCount ;
       :startTime ?startTime ;
       :endTime ?endTime .
   } .
-  GRAPH :clock {
-    swi:GraphRoot time:systemTime ?systemTime
+  GRAPH swi:AddedGraph {
+    tuio:defaultSource tuio:updateTime ?systemTime
   } .
-  FILTER( ?systemTime > ?endTime && ?currStateCount > ?oldStateCount ). 
+  FILTER( ?systemTime > ?endTime ). 
 }
 
