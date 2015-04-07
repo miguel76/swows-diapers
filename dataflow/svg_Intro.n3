@@ -13,7 +13,28 @@
 @prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
 
 swi:OutputDataset
+  a spinx:UnionGraph ;
+  spinx:input :svgVar ; 
+  spinx:input :svgDoc .
+
+:svgVar
+ a spinx:LoggedGraph ;
+ spinx:input [
+  a spinx:ConstructGraph ;
+  spinx:input :config  ;
+  spinx:config
+    [ a spinx:IncludedGraph ;
+      spinx:url <svg_Intro.sparql> ;
+      spinx:syntax query:SPARQL_11 ] ] .
+
+:svgDoc
   a spinx:IncludedGraph ;
   spinx:url <svg/index.svg> ;
   spinx:syntax syntax:XML .
+
+:config
+  a spinx:SelectGraph ;
+  spinx:id :config ;
+  spinx:input swi:InputDataset .
+
 

@@ -41,7 +41,20 @@ swi:OutputDataset
     a spinx:IncludedGraph ;
     spinx:url <baseIfNotInput.sparql> ;
     spinx:syntax query:SPARQL_11 ] ] ;
- spinx:input :inputQuantities .
+# spinx:input :inputQuantities .
+ spinx:input [
+  a spinx:ConstructGraph ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :inputQuantities ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :baseQuantities ;
+          spinx:input :baseQuantities ] ] ;
+  spinx:config [
+    a spinx:IncludedGraph ;
+    spinx:url <inputSum.sparql> ;
+    spinx:syntax query:SPARQL_11 ] ] .
  
 
 :inputQuantities
@@ -64,7 +77,7 @@ swi:OutputDataset
   a spinx:LoadGraph ;
   spinx:url <../input/messageTot.xml> ;
   spinx:syntax syntax:XML ;
-  spinx:pollingPeriod "1000"^^xsd:integer.
+  spinx:pollingPeriod "5000"^^xsd:integer.
 
 :baseQuantities
   a spinx:ConstructGraph ;
@@ -78,6 +91,6 @@ swi:OutputDataset
 
 :baseData
   a spinx:LoadGraph ;
-  spinx:url <../input/messageTot.xml> ;
-  spinx:syntax syntax:XML ;
-  spinx:pollingPeriod "1000"^^xsd:integer.
+  spinx:url <../config/baseValues.xml> ;
+  spinx:syntax syntax:XML .
+

@@ -70,8 +70,8 @@ swi:OutputDataset
     spinx:syntax rdfSyntax:N3 ] ] .
 
 :boxesPositions
-# a spinx:LoggedGraph ;
-# spinx:input [
+ a spinx:LoggedGraph ;
+ spinx:input [
   a spinx:DataflowGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
@@ -95,7 +95,7 @@ swi:OutputDataset
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <boxesPositions.n3> ;
-    spinx:syntax rdfSyntax:N3 ] .
+    spinx:syntax rdfSyntax:N3 ] ] .
 
 :quantity
  a spinx:LoggedGraph ;
@@ -128,26 +128,26 @@ swi:OutputDataset
   spinx:syntax rdfSyntax:N3 .
 
 :selectedPage
- a spinx:LoggedGraph ;
- spinx:input [
-  a spinx:DataflowGraph ;
-  spinx:input :mouseEvents ;
+# a spinx:LoggedGraph ;
+# spinx:input [
+#  a spinx:DataflowGraph ;
+#  spinx:input
 #    [ a spinx:InlineDataset ;
 #      spinx:input swi:InputDataset ;
 #      spinx:namedInput 
 #        [ a spinx:NamedGraph ;
-#          spinx:id :mouseEvents ;
-#          spinx:input :mouseEvents ] ] ;
-  spinx:config [
-    a spinx:IncludedGraph ;
-    spinx:url <pageChange.n3> ;
-    spinx:syntax rdfSyntax:N3 ] ] .
-# a spinx:LoggedGraph ;
-# spinx:input [
-#  a spinx:LoadGraph ;
-#  spinx:url <selectedPage.n3> ;
-#  spinx:syntax rdfSyntax:N3 ;
-#  spinx:pollingPeriod "1000"^^xsd:integer ].
+#          spinx:id :config ;
+#          spinx:input :config ] ] ;
+#  spinx:config [
+#    a spinx:IncludedGraph ;
+#    spinx:url <pageChange.n3> ;
+#    spinx:syntax rdfSyntax:N3 ] ] .
+ a spinx:LoggedGraph ;
+ spinx:input [
+  a spinx:LoadGraph ;
+  spinx:url <selectedPage.n3> ;
+  spinx:syntax rdfSyntax:N3 ;
+  spinx:pollingPeriod "1000"^^xsd:integer ].
 
 :quantities
  a spinx:LoggedGraph ;
@@ -158,12 +158,5 @@ swi:OutputDataset
     a spinx:IncludedGraph ;
     spinx:url <quantities.n3> ;
     spinx:syntax rdfSyntax:N3 ] ] .
-
-:mouseEvents
- a spinx:LoggedGraph ;
- spinx:input [
-  a spinx:SelectGraph ;
-  spinx:input swi:InputDataset ;
-  spinx:id swi:mouseEvents ] .
 
 

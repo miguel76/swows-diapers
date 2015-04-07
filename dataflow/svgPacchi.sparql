@@ -8,8 +8,6 @@ PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
 
 CONSTRUCT {
 
-  ?layer_pacco	xml:listenedEventType "tuioEvent"^^xsd:string .
- 	
   ?layer_pacco xml:hasChild ?use_pacco .
 
   ?use_pacco
@@ -21,7 +19,7 @@ CONSTRUCT {
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
     xml:namespace <http://www.w3.org/1999/xlink> ;
-    xml:nodeValue "#pacco_138"^^xsd:string .
+    xml:nodeValue ?href_pacco_value .
   ?transform_pacco
     a xml:Attr ;
     xml:nodeName "transform"^^xsd:string ;
@@ -35,10 +33,19 @@ WHERE {
     :id ?pos_pacco_id ;
     :x ?pos_pacco_x ;
     :y ?pos_pacco_y .
+
+  GRAPH :selectedPage {
+    swi:GraphRoot :selectedPage ?palletPage .
+    ?palletPage
+      a :Pallet ;
+      :id ?selectedPalletId . 
+  } .
+
   BIND( URI( CONCAT( STR(:use_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?use_pacco ) .
   BIND( URI( CONCAT( STR(:transform_pacco_), MD5(STR(?pos_pacco)) ) ) AS ?transform_pacco ) .
   BIND( CONCAT( "translate(", STR(?pos_pacco_x), " ", STR(?pos_pacco_y), ")" ) AS ?translate_pacco ) .
   BIND( URI( CONCAT( STR(:layer_), MD5(STR(?pos_pacco_id)) ) ) AS ?layer_pacco ) .
+  BIND( CONCAT( "#pacco_", STR(?selectedPalletId) ) AS ?href_pacco_value ) .
 
 }
 

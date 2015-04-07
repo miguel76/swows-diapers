@@ -27,7 +27,7 @@ WHERE {
       :endTime ?endTime .
   } .
   GRAPH swi:AddedGraph {
-    tuio:defaultSource tuio:updateTime ?systemTime
+    swi:GraphRoot time:systemTime ?systemTime
   } .
   FILTER( ?systemTime > ?endTime ). 
 }

@@ -31,7 +31,6 @@ WHERE {
       :targetPacchiY ?yF ;
       :massimaAltezzaPacchiMin ?yMin ;
       :massimaAltezzaPacchiMax ?yMax ;
-      :massimaAltezzaPacchiRel ?yRel ;
       :gravitazione ?g .
   } .
   BIND( FLOOR((?id_box - 1)/ 4) AS ?level ) .
@@ -40,8 +39,8 @@ WHERE {
   BIND( 1 + FLOOR(FLOOR((?position - 1)/ 2) / 2) * 2 - FLOOR((?position - 1)/ 2) AS ?back ) .
   BIND( ?base_x + ?passo_o * ?right + ?passo_p_x * ?back AS ?x0 ) .
   BIND( ?base_y + ?passo_p_y * ?back + ?passo_h * ?level AS ?y0 ) .
-  BIND( ?y0 + ?yRel AS ?yBase ) .
-  BIND( IF( ?yBase < ?yMax, ?yMax, IF( ?yBase > ?yMin, ?yMin, ?yBase ) ) AS ?yM ) .
+  BIND( (?base_y - ?yMin) / (?base_y - ?yMax) AS ?k ) .
+  BIND( ?y0 - (?y0 - ?yMax) * ?k AS ?yM ) .
   BIND( URI( CONCAT( STR(:box_), MD5(STR(?id_box)) ) ) AS ?box ) .
   BIND( -1 * afn:sqrt(2 * ?g * (?y0 - ?yM)) AS ?vy ) .
   BIND( -1 * ?vy / ?g + afn:sqrt((?yF - ?yM) / ?g) AS ?t ) .

@@ -9,7 +9,7 @@ CONSTRUCT {
   swi:GraphRoot :pallet ?pallet .
   ?pallet
     :id ?palletId ;
-    :quantity ?productQuantityValue ;
+    :quantity ?quantityLimited ;
     :level ?level .
 }
 WHERE {
@@ -21,8 +21,10 @@ WHERE {
     swi:GraphRoot :pallet_config ?palletConfig .
     ?palletConfig
       :typeId ?palletId ;
+      :maxPacchi ?maxQuantity ;
       :packsPerLevel ?packsPerLevel .
   } .
-  BIND ( xsd:integer(CEIL(?productQuantityValue / ?packsPerLevel)) AS ?level ) .
+  BIND ( IF( ?productQuantityValue > ?maxQuantity, ?maxQuantity, ?productQuantityValue ) AS ?quantityLimited ) .
+  BIND ( xsd:integer(CEIL(?quantityLimited / ?packsPerLevel)) AS ?level ) .
 }
 

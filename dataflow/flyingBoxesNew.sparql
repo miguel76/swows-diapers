@@ -33,7 +33,7 @@ WHERE {
       :tripTime ?tripTime .
   } .
   GRAPH :clock {
-    tuio:defaultSource tuio:updateTime ?systemTime
+    swi:GraphRoot time:systemTime ?systemTime
   }
   FILTER( ?id_box <= ?prevQuantity && ?id_box > ?newQuantity ). 
   BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?systemTime),STR(?palletId),STR(?id_box))) ) ) AS ?flyingBox ) .

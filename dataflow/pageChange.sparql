@@ -6,6 +6,8 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
 PREFIX tuio:  <http://www.swows.org/tuio#>
+PREFIX events:  <http://www.swows.org/DOM/Events#>
+PREFIX doc:   <http://www.swows.org/xml/instance#>
 
 DELETE {
   swi:GraphRoot :selectedPage ?selectedPage .
@@ -21,9 +23,9 @@ WHERE {
     ?selectedPage a :Intro .
   }
   GRAPH swi:AddedGraph {
-    ?cursor
-      a tuio:Cursor ;
-      tuio:source tuio:defaultSource .
+    ?event
+      a events:MouseEvent ;
+      events:target doc:introPage .
   }
 };
 
@@ -38,38 +40,44 @@ INSERT {
     :id ?newPalletId . 
 }
 WHERE {
-
   GRAPH swi:ThisGraph {
     swi:GraphRoot :selectedPage ?selectedPage .
     ?selectedPage a :Home .
   }
-
   GRAPH swi:AddedGraph {
-    ?cursor
-      a tuio:Cursor ;
-      tuio:source tuio:defaultSource ;
-      tuio:position ?position .
-    ?position
-      tuio:x ?posx ;
-      tuio:y ?posy .
+    ?event
+      a events:MouseEvent ;
+      events:target ?link .
   }
-
-  swi:GraphRoot
-    :screenWidth ?screenWidth ;
-    :screenHeight ?screenHeight ;
-    :homeLink_radius ?radius ;
-    :pallet_config ?palletConfig .
-
-  ?palletConfig
-    :typeId ?newPalletId ;
-    :homeLink_x ?cx ;
-    :homeLink_y ?cy .
-
-  BIND( URI( CONCAT( STR(:newPalletPage_), MD5(STR(?palletConfig)) ) ) AS ?newPalletPage ) .
-  BIND( ?posx * ?screenWidth AS ?x ) .
-  BIND( ?posy * ?screenHeight AS ?y ) .
-  FILTER ( (?x - ?cx) * (?x - ?cx) + (?y - ?cy) * (?y - ?cy) <= ?radius * ?radius ) .
-
+  BIND( URI( CONCAT( STR(:newPalletPage_), MD5(STR(?link)) ) ) AS ?newPalletPage ) .
+  BIND( SUBSTR( STR(?link), STRLEN(STR(doc:link_)) + 1, STRLEN(STR(?link)) ) AS ?newPalletId ) .
 };
 
+DELETE {
+  swi:GraphRoot :selectedPage ?selectedPage .
+  ?selectedPage
+    a :Pallet ;
+    :id ?palletId . 
+}
+INSERT {
+  swi:GraphRoot :selectedPage ?newPalletPage .
+  ?newPalletPage
+    a :Pallet ; 
+    :id ?newPalletId . 
+}
+WHERE {
+  GRAPH swi:ThisGraph {
+    swi:GraphRoot :selectedPage ?selectedPage .
+    ?selectedPage
+      a :Pallet ;
+      :id ?palletId . 
+  }
+  GRAPH swi:AddedGraph {
+    ?event
+      a events:MouseEvent ;
+      events:target ?link .
+  }
+  BIND( URI( CONCAT( STR(:newPalletPage_), MD5(STR(?link)) ) ) AS ?newPalletPage ) .
+  BIND( SUBSTR( STR(?link), STRLEN(STR(doc:menu_link_)) + 1, STRLEN(STR(?link)) ) AS ?newPalletId ) .
 
+};

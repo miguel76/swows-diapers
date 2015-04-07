@@ -40,7 +40,7 @@ WHERE {
     swi:GraphRoot :gravitazione ?g .
   } .
   GRAPH :clock {
-    tuio:defaultSource tuio:updateTime ?systemTime
+    swi:GraphRoot time:systemTime ?systemTime
   }
   BIND( ?systemTime - ?flightStartTime AS ?t ) .
   BIND( ?x0 + ?vx * ?t AS ?x ) .

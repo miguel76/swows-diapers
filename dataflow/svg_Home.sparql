@@ -21,6 +21,8 @@ CONSTRUCT {
     xml:nodeName "fill"^^xsd:string ;
     xml:nodeValue ?fill_cerchio_value .
 
+  ?link xml:listenedEventType "mousedown" .
+
 }
 WHERE {
 
@@ -36,18 +38,23 @@ WHERE {
   BIND( URI( CONCAT( STR(doc:cerchio_home_), STR(?palletId) ) ) AS ?cerchio ) .
   BIND( URI( CONCAT( STR(:fill_cerchio_), MD5(STR(?palletId)) ) ) AS ?fill_cerchio ) .
 
+  BIND( URI( CONCAT( STR(doc:link_), STR(?linkPalletId) ) ) AS ?link ) .
+
   BIND( xsd:integer(CEIL(?selectedProductQuantityValue/4)) AS ?selectedLevel) .
   GRAPH :config {
     swi:GraphRoot
       :passoIndicatore ?passoIndicatore ;
-      :pallet_config ?palletConfig .
+      :pallet_config ?palletConfig, ?linkPalletConfig .
     ?palletConfig
       :typeId ?palletId ;
       :color ?color_item .
+    ?linkPalletConfig
+      :typeId ?linkPalletId .
     ?color_item
       :id ?level ;
       :code ?fill_cerchio_value .
   } .
+  FILTER(?linkPalletId != "150").
 
 }
 

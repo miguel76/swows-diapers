@@ -27,8 +27,8 @@ swi:OutputDataset
     spinx:syntax query:SPARQL_11 ] .
 
 :allPositions
- a spinx:LoggedGraph ;
- spinx:input [
+# a spinx:LoggedGraph ;
+# spinx:input [
   a spinx:UnionGraph ;
   spinx:input [
   a spinx:ConstructGraph ;
@@ -64,7 +64,7 @@ swi:OutputDataset
     a spinx:IncludedGraph ;
     spinx:url <flyingBoxesPositions.sparql> ;
 #    spinx:url <emptyConstruct.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ] ] .
+    spinx:syntax query:SPARQL_11 ] ] .
 
 :boxesStartingData
  a spinx:LoggedGraph ;

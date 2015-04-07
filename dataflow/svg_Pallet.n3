@@ -43,7 +43,13 @@ swi:OutputDataset
 # a spinx:LoggedGraph ;
 # spinx:input [
   a spinx:ConstructGraph ;
-  spinx:input :boxesPositions ;
+  spinx:input
+    [ a spinx:InlineDataset ;
+      spinx:input :boxesPositions ;
+      spinx:namedInput 
+        [ a spinx:NamedGraph ;
+          spinx:id :selectedPage ;
+          spinx:input :selectedPage ] ] ;
   spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svgPacchi.sparql> ;

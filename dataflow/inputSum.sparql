@@ -16,13 +16,12 @@ WHERE {
     swi:GraphRoot :pallet ?productType .
     ?productType
       :id ?productTypeId ;
-      :quantity ?productQuantityNum .
+      :quantity ?baseProductQuantityNum .
   } .
-  FILTER NOT EXISTS {
-    swi:GraphRoot :pallet ?inputProductType .
-    ?inputProductType
-      :id ?productTypeId ;
-      :quantity ?inputProductQuantityNum .
-  }
+  swi:GraphRoot :pallet ?inputProductType .
+  ?inputProductType
+    :id ?productTypeId ;
+    :quantity ?inputProductQuantityNum .
+  BIND(?baseProductQuantityNum + ?inputProductQuantityNum AS ?productQuantityNum) . 
 }
 

@@ -8,29 +8,14 @@ PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
 
 CONSTRUCT {
 
-# doc:thePalletPage	xml:listenedEventType "tuioEvent"^^xsd:string .
-doc:titolo_138 xml:listenedEventType "tuioEvent"^^xsd:string .
-doc:titolo_162 xml:listenedEventType "tuioEvent"^^xsd:string .
-#doc:theMenuPage	xml:listenedEventType "tuioEvent"^^xsd:string .
-doc:numero_14  xml:listenedEventType "tuioEvent"^^xsd:string .
- 
-doc:rect1	xml:listenedEventType "tuioEvent"^^xsd:string .
- doc:rect2	xml:listenedEventType "tuioEvent"^^xsd:string .
- doc:rect3	xml:listenedEventType "tuioEvent"^^xsd:string .
- doc:rect4	xml:listenedEventType "tuioEvent"^^xsd:string .
- doc:rect5	xml:listenedEventType "tuioEvent"^^xsd:string .
-
- 
- doc:numero xml:hasAttribute <#href_numero> .
-  doc:numero xml:listenedEventType "tuioEvent"^^xsd:string .
+  doc:numero xml:hasAttribute <#href_numero> .
   <#href_numero>
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
     xml:namespace <http://www.w3.org/1999/xlink> ;
     xml:nodeValue ?href_numero_value .
-	
+
   doc:scala xml:hasAttribute <#href_scala> .
-  doc:scala xml:listenedEventType "tuioEvent"^^xsd:string .
   <#href_scala>
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
@@ -38,22 +23,19 @@ doc:rect1	xml:listenedEventType "tuioEvent"^^xsd:string .
     xml:nodeValue ?href_scala_value .
 
   doc:titolo xml:hasAttribute <#href_titolo> .
-  doc:titolo xml:listenedEventType "tuioEvent"^^xsd:string .
   <#href_titolo>
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
     xml:namespace <http://www.w3.org/1999/xlink> ;
     xml:nodeValue ?href_titolo_value .
-	
+
   doc:posizione_indicatore xml:hasAttribute <#transform_indicatore> .
-  doc:posizione_indicatore xml:listenedEventType "tuioEvent"^^xsd:string .
   <#transform_indicatore>
     a xml:Attr ;
     xml:nodeName "transform"^^xsd:string ;
     xml:nodeValue ?translate_indicatore .
 
   doc:layer_scala_colori xml:hasChild ?use_colore .
-  doc:layer_scala_colori xml:listenedEventType "tuioEvent"^^xsd:string .
   ?use_colore 
     a xml:Element ;
     xml:namespace <http://www.w3.org/2000/svg> ;
@@ -67,15 +49,12 @@ doc:rect1	xml:listenedEventType "tuioEvent"^^xsd:string .
     xml:nodeValue ?href_colore_value .
 
   doc:cerchio_grande xml:hasAttribute <#fill_cerchio_grande> .
-  doc:cerchio_grande xml:listenedEventType "tuioEvent"^^xsd:string .
- 	 
- <#fill_cerchio_grande>
+  <#fill_cerchio_grande>
     a xml:Attr ;
     xml:nodeName "fill"^^xsd:string ;
     xml:nodeValue ?fill_cerchio_grande_value .
 
   ?numero_piccolo xml:hasAttribute ?href_numero_piccolo .
-?numero_piccolo xml:listenedEventType "tuioEvent"^^xsd:string .
   ?href_numero_piccolo
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
@@ -83,20 +62,18 @@ doc:rect1	xml:listenedEventType "tuioEvent"^^xsd:string .
     xml:nodeValue ?href_numero_piccolo_value .
 
   ?cerchio_piccolo xml:hasAttribute ?fill_cerchio_piccolo .
-	?cerchio_piccolo xml:listenedEventType "tuioEvent"^^xsd:string .
-
   ?fill_cerchio_piccolo
     a xml:Attr ;
     xml:nodeName "fill"^^xsd:string ;
     xml:nodeValue ?fill_cerchio_piccolo_value .
 
   ?menu_link_selected xml:hasAttribute ?selectedOpacity .
-?menu_link xml:listenedEventType "tuioEvent"^^xsd:string .
-  
-?selectedOpacity
+  ?selectedOpacity
     a xml:Attr ;
     xml:nodeName "opacity"^^xsd:string ;
     xml:nodeValue "0.3"^^xsd:string .
+
+  ?menu_link_unselected xml:listenedEventType "mousedown" .
 
 }
 WHERE {
@@ -127,11 +104,13 @@ WHERE {
   GRAPH :config {
     swi:GraphRoot
       :passoIndicatore ?passoIndicatore ;
-      :pallet_config ?selectedPalletConfig, ?palletConfig .
+      :pallet_config ?selectedPalletConfig, ?palletConfig, ?unselectedPalletConfig .
     ?selectedPalletConfig
       :typeId ?selectedPalletId ;
       :color ?selectedColor_item ;
       :maxPacchi ?maxPacchi .
+    ?unselectedPalletConfig
+      :typeId ?unselectedPalletId .
     ?selectedColor_item
       :id ?selectedLevel ;
       :code ?fill_cerchio_grande_value .
@@ -142,13 +121,17 @@ WHERE {
       :id ?level ;
       :code ?fill_cerchio_piccolo_value .
   } .
+  FILTER(?unselectedPalletId != ?selectedPalletId && ?unselectedPalletId != "150").
+
   BIND( CONCAT( "#numero_", STR(?selectedProductQuantityValue) ) AS ?href_numero_value ) .
   BIND( CONCAT( "translate(0 ", STR((?maxPacchi - ?selectedProductQuantityValue) * ?passoIndicatore), ")" ) AS ?translate_indicatore ) .
 
-  BIND( URI( CONCAT( STR(doc:menu_link), "_", STR(?selectedPalletId) ) ) AS ?menu_link_selected ) .
+  BIND( URI( CONCAT( STR(doc:menu_link_), STR(?selectedPalletId) ) ) AS ?menu_link_selected ) .
   BIND( URI( CONCAT( STR(:selectedOpacity_), MD5(STR(?selectedPalletId)) ) ) AS ?selectedOpacity ) .
   BIND( CONCAT( "#scala_", STR(?selectedPalletId) ) AS ?href_scala_value ) .
   BIND( CONCAT( "#titolo_", STR(?selectedPalletId) ) AS ?href_titolo_value ) .
+
+  BIND( URI( CONCAT( STR(doc:menu_link_), STR(?unselectedPalletId) ) ) AS ?menu_link_unselected ) .
 
   OPTIONAL {
     swi:GraphRoot :coloriVisualizzati ?colori .

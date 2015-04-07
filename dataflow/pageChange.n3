@@ -21,15 +21,8 @@ swi:OutputDataset
       spinx:syntax rdfSyntax:N3 ] ;
   spinx:input
     [ spinx:eventsFrom swi:InputDataset ;
-      spinx:input :config ;
       spinx:config
         [ a spinx:IncludedGraph ;
           spinx:url <pageChange.sparql> ;
           spinx:syntax sparql:Update ] ] .
-
-:config
-  a spinx:SelectGraph ;
-  spinx:input swi:InputDataset ;
-  spinx:id :config .
-
 
