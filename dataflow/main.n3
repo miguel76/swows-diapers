@@ -34,7 +34,7 @@ swi:OutputDataset
         [ a spinx:NamedGraph ;
           spinx:id :possibleBoxesEnum ;
           spinx:input :possibleBoxesEnum ] ] ;
-      spinx:config
+	 spinx:config
     [ a spinx:IncludedGraph ;
       spinx:url <svg.n3> ;
       spinx:syntax rdfSyntax:N3 ] .
@@ -91,7 +91,7 @@ swi:OutputDataset
       spinx:namedInput 
         [ a spinx:NamedGraph ;
           spinx:id :clock ;
-          spinx:input swi:InputDataset ] ] ;
+          spinx:input :input ] ] ;
   spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <boxesPositions.n3> ;
@@ -133,7 +133,7 @@ swi:OutputDataset
   a spinx:DataflowGraph ;
   spinx:input
     [ a spinx:InlineDataset ;
-      spinx:input swi:InputDataset ;
+      spinx:input :input ;
       spinx:namedInput 
         [ a spinx:NamedGraph ;
           spinx:id :config ;
@@ -158,5 +158,9 @@ swi:OutputDataset
     a spinx:IncludedGraph ;
     spinx:url <quantities.n3> ;
     spinx:syntax rdfSyntax:N3 ] ] .
+
+:input
+a spinx:LoggedGraph ;
+ spinx:input swi:InputDataset .
 
 

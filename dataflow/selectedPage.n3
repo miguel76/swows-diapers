@@ -5,5 +5,5 @@
 swi:GraphRoot :selectedPage <#pallet> .
 
 <#pallet>
-  a :Intro ;
+  a :Pallet ;
   :id "138"^^xsd:string .

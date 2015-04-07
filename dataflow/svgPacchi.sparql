@@ -8,6 +8,8 @@ PREFIX dir:   </home/miguel/pampers3/dataflow/test_query_svg/>
 
 CONSTRUCT {
 
+  ?layer_pacco	xml:listenedEventType "tuioEvent"^^xsd:string .
+ 	
   ?layer_pacco xml:hasChild ?use_pacco .
 
   ?use_pacco
