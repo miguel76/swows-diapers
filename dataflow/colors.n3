@@ -23,7 +23,7 @@ swi:OutputDataset
       spinx:config [
         a spinx:IncludedGraph ;
         spinx:url <colorsEnumInput.sparql> ;
-        spinx:syntax query:SPARQL_11 ] ].
+        spinx:syntax query:SPARQL_11 ] ] .
 
 
 

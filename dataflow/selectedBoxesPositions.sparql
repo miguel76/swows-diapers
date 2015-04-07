@@ -1,0 +1,34 @@
+PREFIX :      <http://www.cattid.uniroma1.it/2012/pampers#>
+PREFIX xml:   <http://www.swows.org/xml#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX swi:   <http://www.swows.org/instance#>
+PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time:   <http://www.swows.org/time#>
+
+CONSTRUCT {
+  swi:GraphRoot
+    :pacco ?pacco .
+  ?pacco
+    :id ?id_box ;
+    :x ?x ;
+    :y ?y .
+}
+WHERE {
+  swi:GraphRoot
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :pacco ?pacco .
+  ?pacco
+    :id ?id_box ;
+    :x ?x ;
+    :y ?y .
+  GRAPH :selectedPage {
+    swi:GraphRoot :selectedPage ?palletPage .
+    ?palletPage
+      a :Pallet ;
+      :id ?palletId . 
+  } .
+}
+

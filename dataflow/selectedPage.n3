@@ -1,0 +1,9 @@
+@prefix :        <http://www.cattid.uniroma1.it/2012/pampers#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix swi:   <http://www.swows.org/instance#> .
+
+swi:GraphRoot :selectedPage <#pallet> .
+
+<#pallet>
+  a :Pallet ;
+  :id "162"^^xsd:string .

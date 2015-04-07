@@ -8,15 +8,19 @@ PREFIX time:   <http://www.swows.org/time#>
 
 CONSTRUCT {
   swi:GraphRoot
-    :pacchi :Pacchi .
-  :Pacchi
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
     :pacco ?pacco_fermo .
   ?pacco_fermo :id ?id_box .
   ?pacco_fermo :x ?x0 .
   ?pacco_fermo :y ?y0 .
 }
 WHERE {
-  swi:GraphRoot :numPacchi ?numPacchi .
+  swi:GraphRoot :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?productQuantityValue .
   GRAPH :boxesStartingData {
     ?box
       :id ?id_box ;
@@ -25,7 +29,7 @@ WHERE {
       :startSpeedX ?vx ;
       :startSpeedY ?vy .
   } .
-  FILTER( ?id_box <= ?numPacchi ). 
-  BIND( URI( CONCAT( STR(:pacco_fermo_), MD5(STR(?id_box)) ) ) AS ?pacco_fermo ) .
+  FILTER( ?id_box <= ?productQuantityValue ). 
+  BIND( URI( CONCAT( STR(:pacco_fermo_), MD5(CONCAT(STR(?palletId), STR(?id_box))) ) ) AS ?pacco_fermo ) .
 }
 

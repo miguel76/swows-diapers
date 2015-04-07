@@ -6,17 +6,27 @@ PREFIX swi:   <http://www.swows.org/instance#>
 PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
-  swi:GraphRoot :numPacchi ?num_pacchi .
+  swi:GraphRoot :pallet ?productType .
+  ?productType
+    :id ?productTypeId ;
+    :quantity ?productQuantityNum .
 }
 WHERE {
-  doc:138 xml:hasChild ?product_quantity .
-  ?product_quantity
+  doc:p1 xml:hasChild ?productType .
+  ?productType
+    xml:hasAttribute ?productTypeIdAttr ;
+    xml:hasChild ?productQuantity .
+  ?productTypeIdAttr
+    a xml:Attr ;
+    xml:nodeName "id"^^xsd:string ;
+    xml:nodeValue ?productTypeId .
+  ?productQuantity
     a xml:Element ;
-    xml:nodeName "available-quantity" ;
-    xml:hasChild ?product_quantity_txt .
-  ?product_quantity_txt
+    xml:nodeName "available-quantity"^^xsd:string ;
+    xml:hasChild ?productQuantityTxt .
+  ?productQuantityTxt
     a xml:Text ;
-    xml:nodeValue ?product_quantity_value .
-  BIND( xsd:integer(?product_quantity_value) AS ?num_pacchi ).
+    xml:nodeValue ?productQuantityValue .
+  BIND( xsd:integer(?productQuantityValue) AS ?productQuantityNum)
 }
 

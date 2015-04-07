@@ -20,7 +20,6 @@ WHERE {
   swi:GraphRoot rdfs:member ?id_box .
   GRAPH :config {
     swi:GraphRoot
-      :maxPacchi ?max_layer ;
       :passoPacchiH ?passo_h ;
       :passoPacchiO ?passo_o ;
       :passoPacchiPX ?passo_p_x ;

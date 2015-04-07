@@ -10,15 +10,21 @@ CONSTRUCT {
   swi:GraphRoot :state ?oldState .
   ?oldState
     :stateCount ?oldStateCount ;
-    :numPacchi ?oldNumPacchi ;
-    :precNumPacchi ?oldPrecNumPacchi .
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?oldQuantityValue ;
+    :precQuantity ?oldcurrQuantityValue .
 }
 WHERE {
   swi:GraphRoot :state ?oldState .
   ?oldState
     :stateCount ?oldStateCount ;
-    :numPacchi ?oldNumPacchi ;
-    :precNumPacchi ?oldPrecNumPacchi .
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?oldQuantityValue ;
+    :precQuantity ?oldcurrQuantityValue .
   GRAPH :quantityCurr {
     swi:GraphRoot :state ?currState .
     ?currState :stateCount ?currStateCount

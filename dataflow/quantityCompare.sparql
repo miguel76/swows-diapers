@@ -7,22 +7,30 @@ PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
 
 CONSTRUCT {
-  swi:GraphRoot :state ?newState .
-  ?newState
-    :stateCount ?newStateCount ;
-    :numPacchi ?newNumPacchi ;
-    :precNumPacchi ?currNumPacchi .
+  swi:GraphRoot :state ?currState .
+  ?currState
+    :stateCount ?currStateCount ;
+    :pallet ?palletState .
+  ?palletState
+    :id ?palletId ;
+    :newQuantity ?newQuantityValue ;
+    :quantity ?currQuantityValue ;
+    :precQuantity ?precQuantityValue .
 }
 WHERE {
-  swi:GraphRoot :numPacchi ?newNumPacchi .
+  swi:GraphRoot :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?newQuantityValue .
   GRAPH :quantityCurr {
     swi:GraphRoot :state ?currState .
     ?currState
       :stateCount ?currStateCount ;
-      :numPacchi ?currNumPacchi .
+      :pallet ?palletState .
+    ?palletState
+      :id ?palletId ;
+      :quantity ?currQuantityValue ;
+      :precQuantity ?precQuantityValue .
   } .
-  FILTER( ?newNumPacchi != ?currNumPacchi ). 
-  BIND( ?currStateCount + 1 AS ?newStateCount ) .
-  BIND( URI( CONCAT( STR(:newState_), MD5(STR(?currState)) ) ) AS ?newState ) .
 }
 

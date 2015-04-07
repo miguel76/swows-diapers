@@ -7,6 +7,11 @@ PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX time:   <http://www.swows.org/time#>
 
 CONSTRUCT {
+  swi:GraphRoot
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :pacco ?flyingBox .
   ?flyingBox
     :id ?id_box ;
     :stateCount ?currStateCount ;
@@ -17,8 +22,11 @@ WHERE {
   swi:GraphRoot :state ?currState .
   ?currState
     :stateCount ?currStateCount ;
-    :numPacchi ?currNumPacchi ;
-    :precNumPacchi ?currPrecNumPacchi .
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?quantityValue ;
+    :precQuantity ?precQuantityValue .
   GRAPH :boxesStartingData {
     ?box
       :id ?id_box ;
@@ -29,11 +37,17 @@ WHERE {
   }
   FILTER NOT EXISTS {
     GRAPH :flyingBoxes {
-      ?flyingBox :id ?id_box
+      swi:GraphRoot :pallet ?pallet .
+      ?pallet
+        :id ?palletId ;
+        :pacco ?flyingBox .
+      ?flyingBox
+        :id ?id_box ;
+        :stateCount ?currStateCount .
     }
   } .
-  FILTER( ?id_box <= ?currPrecNumPacchi && ?id_box > ?currNumPacchi ). 
-  BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?currState),STR(?id_box))) ) ) AS ?flyingBox ) .
+  FILTER( ?id_box <= ?precQuantityValue && ?id_box > ?quantityValue ). 
+  BIND( URI( CONCAT( STR(:flyingBox_), MD5(CONCAT(STR(?currState),STR(?palletId),STR(?id_box))) ) ) AS ?flyingBox ) .
   BIND( ?systemTime + ?tripTime AS ?endTime ) .
 }
 

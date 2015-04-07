@@ -13,8 +13,8 @@
 @prefix query: <http://jena.hpl.hp.com/2003/07/query/> .
 
 swi:OutputDataset
- a spinx:LoggedGraph ;
- spinx:input [
+  a spinx:LoggedGraph ;
+  spinx:input [
     a spinx:UpdatableGraph ;
     spinx:addGraph [
       a spinx:ConstructGraph ;
@@ -56,8 +56,8 @@ swi:OutputDataset
         spinx:syntax query:SPARQL_11 ] ] ] .
 
 :quantityHistory
- a spinx:LoggedGraph ;
- spinx:input [
+# a spinx:LoggedGraph ;
+# spinx:input [
   a spinx:UpdatableGraph ;
   spinx:addGraph [
     a spinx:UnionGraph ;
@@ -65,13 +65,7 @@ swi:OutputDataset
 #     a spinx:LoggedGraph ;
 #     spinx:input [
       a spinx:ConstructGraph ;
-      spinx:input
-        [ a spinx:InlineDataset ;
-          spinx:input swi:InputDataset ;
-          spinx:namedInput 
-            [ a spinx:NamedGraph ;
-              spinx:id :quantityCurr ;
-              spinx:input :quantityCurr ] ] ;
+      spinx:input :quantityCompare ;
       spinx:config [
         a spinx:IncludedGraph ;
         spinx:url <quantityHistoryNew.sparql> ;
@@ -103,7 +97,23 @@ swi:OutputDataset
     spinx:config [
       a spinx:IncludedGraph ;
       spinx:url <quantityHistoryDelete.sparql> ;
-      spinx:syntax query:SPARQL_11 ] ] ] .
+      spinx:syntax query:SPARQL_11 ] ] .
+
+:quantityCompare
+# a spinx:LoggedGraph ;
+# spinx:input [
+      a spinx:ConstructGraph ;
+      spinx:input
+        [ a spinx:InlineDataset ;
+          spinx:input swi:InputDataset ;
+          spinx:namedInput 
+            [ a spinx:NamedGraph ;
+              spinx:id :quantityCurr ;
+              spinx:input :quantityCurr ] ] ;
+      spinx:config [
+        a spinx:IncludedGraph ;
+        spinx:url <quantityCompare.sparql> ;
+        spinx:syntax query:SPARQL_11 ] .
 
 :quantityCurr
  a spinx:LoggedGraph ;
@@ -115,7 +125,7 @@ swi:OutputDataset
    spinx:config [
     a spinx:IncludedGraph ;
     spinx:url <quantityHistoryCurr.sparql> ;
-    spinx:syntax query:SPARQL_11 ] ].
+    spinx:syntax query:SPARQL_11 ] ] .
 
 :config
   a spinx:SelectGraph ;

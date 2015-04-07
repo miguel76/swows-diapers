@@ -6,11 +6,11 @@
         		<available-quantity>13</available-quantity>
         		<maximum-quantity>32</maximum-quantity>
 			<name>ESAPACK JUNIOR</name>
-    		</product>
-    		<product id="162">
+    		</product-type>
+    		<product-type id="162">
         		<available-quantity>9</available-quantity>
         		<maximum-quantity>28</maximum-quantity>
 			<name>ESAPACK MAXI</name>
-    		</product>
+    		</product-type>
 	</pallet>
 </store-state>

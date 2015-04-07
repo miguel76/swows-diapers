@@ -54,7 +54,7 @@ swi:OutputDataset
 
 :svgDoc
   a spinx:IncludedGraph ;
-  spinx:url <svg/junior.svg> ;
+  spinx:url <svg/pallet.svg> ;
   spinx:syntax syntax:XML .
 
 

@@ -10,15 +10,21 @@ CONSTRUCT {
   swi:GraphRoot :state ?currState .
   ?currState
     :stateCount ?currStateCount ;
-    :numPacchi ?currNumPacchi ;
-    :precNumPacchi ?currPrecNumPacchi .
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?quantityValue ;
+    :precQuantity ?precQuantityValue .
 }
 WHERE {
   swi:GraphRoot :state ?currState .
   ?currState
     :stateCount ?currStateCount ;
-    :numPacchi ?currNumPacchi ;
-    :precNumPacchi ?currPrecNumPacchi .
+    :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?quantityValue ;
+    :precQuantity ?precQuantityValue .
   {
     SELECT (MAX(?stateCount) AS ?maxStateCount)
     WHERE {

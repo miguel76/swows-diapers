@@ -3,54 +3,100 @@
 @prefix swi:   <http://www.swows.org/instance#> .
 
 swi:GraphRoot
-  :maxPacchi "32"^^xsd:integer ;
-  :passoIndicatore "20.78125"^^xsd:decimal ;
+  :passoIndicatore "13.0665"^^xsd:decimal ;
   :passoPacchiH "-83.125"^^xsd:decimal ;
   :passoPacchiO "158.5313"^^xsd:decimal ;
   :passoPacchiPX "83.2246"^^xsd:decimal ;
   :passoPacchiPY "-37.8848"^^xsd:decimal ;
-  :basePacchiX "845.1296"^^xsd:decimal ;
-  :basePacchiY "639.3079"^^xsd:decimal ;
-  :targetPacchiX "45"^^xsd:decimal ;
-  :targetPacchiY "688"^^xsd:decimal ;
-  :massimaAltezzaPacchi "0"^^xsd:decimal ;
+  :basePacchiX "1020.4028"^^xsd:decimal ;
+  :basePacchiY "698.9014"^^xsd:decimal ;
+  :targetPacchiX "255"^^xsd:decimal ;
+  :targetPacchiY "1300"^^xsd:decimal ;
+  :massimaAltezzaPacchi "20"^^xsd:decimal ;
   :gravitazione "50"^^xsd:decimal ;
-  :color :color_0, :color_1, :color_2, :color_3, :color_4, :color_5, :color_6, :color_7, :color_8 .
+  :pallet_config :config_138, :config_162, :config_150 .
+
+:config_138
+  :typeId "138"^^xsd:string ;
+  :maxPacchi "32"^^xsd:integer ;
+  :levels "8"^^xsd:integer ;
+  :color :color_0, :color_1_8, :color_2_8, :color_3_8, :color_4_8, :color_5_8, :color_6_8, :color_7_8, :color_8_8 .
+
+:config_162
+  :typeId "162"^^xsd:string ;
+  :maxPacchi "28"^^xsd:integer ;
+  :levels "7"^^xsd:integer ;
+  :color :color_0, :color_1_7, :color_2_7, :color_3_7, :color_4_7, :color_5_7, :color_6_7, :color_7_7 .
+
+:config_150
+  :typeId "150"^^xsd:string ;
+  :maxPacchi "42"^^xsd:integer ;
+  :levels "7"^^xsd:integer ;
+  :color :color_0, :color_1_7, :color_2_7, :color_3_7, :color_4_7, :color_5_7, :color_6_7, :color_7_7 .
 
 :color_0
   :id "0"^^xsd:integer ;
   :code "#E9E7D6"^^xsd:string .
 
-:color_1
+:color_1_8
   :id "1"^^xsd:integer ;
   :code "#C80011"^^xsd:string .
 
-:color_2
+:color_2_8
   :id "2"^^xsd:integer ;
   :code "#D5421E"^^xsd:string .
 
-:color_3
+:color_3_8
   :id "3"^^xsd:integer ;
   :code "#E8A531"^^xsd:string .
 
-:color_4
+:color_4_8
   :id "4"^^xsd:integer ;
+  :code "#E2D134"^^xsd:string .
+
+:color_5_8
+  :id "5"^^xsd:integer ;
   :code "#F9F167"^^xsd:string .
 
-:color_5
-  :id "5"^^xsd:integer ;
-  :code "#E4EE39"^^xsd:string .
-
-:color_6
+:color_6_8
   :id "6"^^xsd:integer ;
   :code "#D0EE31"^^xsd:string .
 
-:color_7
+:color_7_8
   :id "7"^^xsd:integer ;
   :code "#A6EF20"^^xsd:string .
 
-:color_8
+:color_8_8
   :id "8"^^xsd:integer ;
+  :code "#6FD813"^^xsd:string .
+
+
+:color_1_7
+  :id "1"^^xsd:integer ;
+  :code "#C80011"^^xsd:string .
+
+:color_2_7
+  :id "2"^^xsd:integer ;
+  :code "#D5421E"^^xsd:string .
+
+:color_3_7
+  :id "3"^^xsd:integer ;
+  :code "#E8A531"^^xsd:string .
+
+:color_4_7
+  :id "4"^^xsd:integer ;
+  :code "#F9F167"^^xsd:string .
+
+:color_5_7
+  :id "5"^^xsd:integer ;
+  :code "#D0EE31"^^xsd:string .
+
+:color_6_7
+  :id "6"^^xsd:integer ;
+  :code "#A6EF20"^^xsd:string .
+
+:color_7_7
+  :id "7"^^xsd:integer ;
   :code "#6FD813"^^xsd:string .
 
 

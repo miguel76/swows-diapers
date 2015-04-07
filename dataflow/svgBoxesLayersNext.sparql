@@ -11,10 +11,9 @@ CONSTRUCT {
 }
 WHERE {
   swi:GraphRoot rdfs:member ?num_layer .
-  GRAPH :config { swi:GraphRoot :maxPacchi ?max_layer  } .
   BIND( URI( CONCAT( STR(:layer_), MD5(STR(?num_layer)) ) ) AS ?layer ) .
   BIND( IF ( FLOOR(?num_layer / 2) = ?num_layer / 2, ?num_layer - 1, ?num_layer + 3 ) AS ?num_next_layer ) .
-  FILTER( ?num_next_layer <= ?max_layer ).
+  FILTER( ?num_next_layer <= 32 ).
   BIND( URI( CONCAT( STR(:layer), "_", MD5(STR(?num_next_layer)) ) ) AS ?next_layer ) .
 }
 

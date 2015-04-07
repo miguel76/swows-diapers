@@ -10,15 +10,22 @@ CONSTRUCT {
   swi:GraphRoot :state :state_0 .
   :state_0
     :stateCount "0"^^xsd:integer ;
-    :numPacchi ?newNumPacchi ;
-    :precNumPacchi ?newNumPacchi .
+    :pallet ?palletState .
+  ?palletState
+    :id ?palletId ;
+    :quantity ?productQuantityValue ;
+    :precQuantity ?productQuantityValue .
 }
 WHERE {
-  swi:GraphRoot :numPacchi ?newNumPacchi .
+  swi:GraphRoot :pallet ?pallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?productQuantityValue .
   FILTER NOT EXISTS {
     GRAPH :quantityCurr {
       swi:GraphRoot :state ?state ;
     } .
   } .
+  BIND( URI( CONCAT( STR(:palletState_), MD5(STR(?pallet)) ) ) AS ?palletState).
 }
 

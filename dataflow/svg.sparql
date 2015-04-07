@@ -7,6 +7,18 @@ PREFIX rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
 
+  doc:content xml:hasChild <#use_palletPage> .
+  <#use_palletPage> 
+    a xml:Element ;
+    xml:namespace <http://www.w3.org/2000/svg> ;
+    xml:nodeName "use"^^xsd:string ;
+    xml:hasAttribute <#href_palletPage> .
+  <#href_palletPage>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue "#palletPage"^^xsd:string .
+
   doc:numero xml:hasAttribute <#href_numero> .
   <#href_numero>
     a xml:Attr ;
@@ -14,7 +26,19 @@ CONSTRUCT {
     xml:namespace <http://www.w3.org/1999/xlink> ;
     xml:nodeValue ?href_numero_value .
 
-  doc:numero_138 xml:hasAttribute <#href_numero> .
+  doc:scala xml:hasAttribute <#href_scala> .
+  <#href_scala>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_scala_value .
+
+  doc:titolo xml:hasAttribute <#href_titolo> .
+  <#href_titolo>
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_titolo_value .
 
   doc:posizione_indicatore xml:hasAttribute <#transform_indicatore> .
   <#transform_indicatore>
@@ -22,7 +46,7 @@ CONSTRUCT {
     xml:nodeName "transform"^^xsd:string ;
     xml:nodeValue ?translate_indicatore .
 
-  doc:layer_colori xml:hasChild ?use_colore .
+  doc:layer_scala_colori xml:hasChild ?use_colore .
   ?use_colore 
     a xml:Element ;
     xml:namespace <http://www.w3.org/2000/svg> ;
@@ -34,18 +58,11 @@ CONSTRUCT {
     xml:namespace <http://www.w3.org/1999/xlink> ;
     xml:nodeValue ?href_colore_value .
 
-  doc:cerchio_numero_colore xml:hasAttribute <#href_cerchio> .
-  <#href_cerchio>
-    a xml:Attr ;
-    xml:nodeName "href"^^xsd:string ;
-    xml:namespace <http://www.w3.org/1999/xlink> ;
-    xml:nodeValue ?href_cerchio_value .
-
-  doc:cerchio_138 xml:hasAttribute <#fill_cerchio_138> .
-  <#fill_cerchio_138>
+  doc:cerchio_grande xml:hasAttribute <#fill_cerchio_grande> .
+  <#fill_cerchio_grande>
     a xml:Attr ;
     xml:nodeName "fill"^^xsd:string ;
-    xml:nodeValue ?fill_cerchio_138_value .
+    xml:nodeValue ?fill_cerchio_grande_value .
 
   ?layer_pacco xml:hasChild ?use_pacco .
 
@@ -58,38 +75,79 @@ CONSTRUCT {
     a xml:Attr ;
     xml:nodeName "href"^^xsd:string ;
     xml:namespace <http://www.w3.org/1999/xlink> ;
-    xml:nodeValue "#pacco138"^^xsd:string .
+    xml:nodeValue "#pacco_138"^^xsd:string .
   ?transform_pacco
     a xml:Attr ;
     xml:nodeName "transform"^^xsd:string ;
     xml:nodeValue ?translate_pacco .
 
+  ?menu_link_selected xml:hasAttribute <#selectedOpacity> .
+  <#selectedOpacity>
+    a xml:Attr ;
+    xml:nodeName "opacity"^^xsd:string ;
+    xml:nodeValue "0.3"^^xsd:string .
+
+  ?numero_piccolo xml:hasAttribute ?href_numero_piccolo .
+  ?href_numero_piccolo
+    a xml:Attr ;
+    xml:nodeName "href"^^xsd:string ;
+    xml:namespace <http://www.w3.org/1999/xlink> ;
+    xml:nodeValue ?href_numero_piccolo_value .
+
+  ?cerchio_piccolo xml:hasAttribute ?fill_cerchio_piccolo .
+  ?fill_cerchio_piccolo
+    a xml:Attr ;
+    xml:nodeName "fill"^^xsd:string ;
+    xml:nodeValue ?fill_cerchio_piccolo_value .
+
 }
 WHERE {
-  swi:GraphRoot
-    :posIndicatore ?posIndicatore ;
-    :numeroVisualizzato ?numeroVisualizzato .
-  OPTIONAL {
-    swi:GraphRoot :coloriVisualizzati ?colori .
-    ?colori :colore ?num_colore } .
+
+  GRAPH :selectedPage {
+    swi:GraphRoot :selectedPage ?palletPage .
+    ?palletPage
+      a :Pallet ;
+      :id ?selectedPalletId . 
+  } .
+
   OPTIONAL {
     swi:GraphRoot :pacchi ?pos_pacchi } .
-  BIND( xsd:integer(CEIL(?posIndicatore/4)) AS ?level) .
+  BIND( xsd:integer(CEIL(?selectedProductQuantityValue/4)) AS ?selectedLevel) .
   GRAPH :config {
-    swi:GraphRoot :passoIndicatore ?passoIndicatore .
-    swi:GraphRoot :color ?color_item .
-    ?color_item :id ?level .
-    ?color_item :code ?fill_cerchio_138_value .
+    swi:GraphRoot
+      :passoIndicatore ?passoIndicatore ;
+      :pallet_config ?selectedPalletConfig, ?palletConfig .
+    ?selectedPalletConfig
+      :typeId ?selectedPalletId ;
+      :color ?selectedColor_item ;
+      :maxPacchi ?maxPacchi .
+    ?selectedColor_item
+      :id ?selectedLevel ;
+      :code ?fill_cerchio_grande_value .
+    ?palletConfig
+      :typeId ?palletId ;
+      :color ?color_item .
+    ?color_item
+      :id ?level ;
+      :code ?fill_cerchio_piccolo_value .
   } .
-  BIND( CONCAT( "#numero_", STR(?numeroVisualizzato) ) AS ?href_numero_value ) .
-  BIND( CONCAT( "translate(0 -", STR(?posIndicatore * ?passoIndicatore), ")" ) AS ?translate_indicatore ) .
-  BIND( URI( CONCAT( STR(:use_colore_), MD5(STR(?num_colore)) ) ) AS ?use_colore ) .
-  BIND( URI( CONCAT( STR(:href_colore_), MD5(STR(?num_colore)) ) ) AS ?href_colore ) .
-  BIND( CONCAT( "#colore_", STR(?num_colore) ) AS ?href_colore_value ) .
-  BIND( CONCAT( "#cerchio_numero_col_", STR(?level) ) AS ?href_cerchio_value ) .
+  BIND( CONCAT( "#numero_", STR(?selectedProductQuantityValue) ) AS ?href_numero_value ) .
+  BIND( CONCAT( "translate(0 ", STR((?maxPacchi - ?selectedProductQuantityValue) * ?passoIndicatore), ")" ) AS ?translate_indicatore ) .
+
+  BIND( URI( CONCAT( STR(doc:menu_link), "_", STR(?selectedPalletId) ) ) AS ?menu_link_selected ) .
+  BIND( CONCAT( "#scala_", STR(?selectedPalletId) ) AS ?href_scala_value ) .
+  BIND( CONCAT( "#titolo_", STR(?selectedPalletId) ) AS ?href_titolo_value ) .
+
+  OPTIONAL {
+    swi:GraphRoot :coloriVisualizzati ?colori .
+    ?colori :colore ?num_colore
+    BIND( URI( CONCAT( STR(:use_colore_), MD5(STR(?num_colore)) ) ) AS ?use_colore ) .
+    BIND( URI( CONCAT( STR(:href_colore_), MD5(STR(?num_colore)) ) ) AS ?href_colore ) .
+  } .
+  BIND( CONCAT( "#scala_colore_", STR(?selectedPalletId), "_", STR(?num_colore) ) AS ?href_colore_value ) .
 
  OPTIONAL {
-  ?pos_pacchi :pacco ?pos_pacco .
+  swi:GraphRoot :pacco ?pos_pacco .
   ?pos_pacco :id ?pos_pacco_id .
   ?pos_pacco :x ?pos_pacco_x .
   ?pos_pacco :y ?pos_pacco_y .
@@ -98,5 +156,21 @@ WHERE {
   BIND( CONCAT( "translate(", STR(?pos_pacco_x), " ", STR(?pos_pacco_y), ")" ) AS ?translate_pacco ) .
   BIND( URI( CONCAT( STR(:layer_), MD5(STR(?pos_pacco_id)) ) ) AS ?layer_pacco ) .
  } .
+
+  swi:GraphRoot
+    :pallet ?pallet, ?selectedPallet .
+  ?pallet
+    :id ?palletId ;
+    :quantity ?productQuantityValue .
+  ?selectedPallet
+    :id ?selectedPalletId ;
+    :quantity ?selectedProductQuantityValue .
+  FILTER( xsd:integer(CEIL(?productQuantityValue/4)) = ?level) .
+  BIND( URI( CONCAT( STR(doc:numero_piccolo), "_", STR(?palletId) ) ) AS ?numero_piccolo ) .
+  BIND( URI( CONCAT( STR(:href_numero_piccolo_), MD5(STR(?palletId)) ) ) AS ?href_numero_piccolo ) .
+  BIND( CONCAT( "#numero_", STR(?productQuantityValue) ) AS ?href_numero_piccolo_value ) .
+  BIND( URI( CONCAT( STR(doc:cerchio_piccolo), "_", STR(?palletId) ) ) AS ?cerchio_piccolo ) .
+  BIND( URI( CONCAT( STR(:fill_cerchio_piccolo_), MD5(STR(?palletId)) ) ) AS ?fill_cerchio_piccolo ) .
+
 }
 
